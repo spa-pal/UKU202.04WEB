@@ -555,7 +555,7 @@
 // <e>HTTP Server
 // ==============
 // <i> Enable or disable HTTP Server
-#define HTTP_ENABLE    1
+#define HTTP_ENABLE    0
 
 //   <o>Number of HTTP Sessions <1-10>
 //   <i> Number of simultaneously active HTTP Sessions.
