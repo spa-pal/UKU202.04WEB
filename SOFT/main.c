@@ -8304,7 +8304,7 @@ while(1)
 										
 	if(b1Hz)
 		{
-		b1Hz=0; //22
+		b1Hz=0; //33
 
 
 		cntrl_hndl();
