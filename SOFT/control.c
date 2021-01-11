@@ -1726,6 +1726,646 @@ data_rs1[26]=0;  */
 }
 
 //-----------------------------------------------
+void matemat_alt(void)
+{
+#ifndef MINISIZE
+//signed short temp_SS;
+signed long temp_SL;
+char temp;
+static short macnt;
+//signed char temp_s;
+
+//static char plpl;
+
+if(++macnt>=50)	macnt=0;
+
+
+Ubat=macnt*16;
+
+Ibat=macnt*20-500; 
+
+//Ibat=-120;
+
+
+if(Ibat<0)bit_minus=1;
+else bit_minus=0;
+
+
+
+Uload=macnt*10;
+
+iload=macnt*20;
+
+
+Unet_=(signed short)macnt*9;
+fnet=500-Unet_;
+
+Us[0]=macnt*11;
+ 
+Us[1]=macnt*11+100;
+
+
+Is[0]=macnt*5;
+		
+Is[1]=macnt*5+50;
+
+if(macnt&0x0004)ND[0]=0;
+else ND[0]=0xff;
+t_i[0]=macnt;
+
+if(!macnt&0x0004)ND[1]=0;
+else ND[1]=0xff;
+t_i[0]=macnt+10;
+
+if(macnt&0x0008)NDB=0;
+else NDB=0xff;
+t_b==macnt+15;
+
+
+
+
+if((Is[0]+Is[1])>IMAX)
+	{
+	num_necc=2;
+	cnt_num_necc=25;
+	}
+	
+else if(((Is[0]+Is[1])*10)<(IMAX*KIMAX))
+	{
+	if(cnt_num_necc)
+		{
+		cnt_num_necc--;
+		if(cnt_num_necc==0) num_necc=1;
+		}
+	}	
+
+	
+/*
+data_rs[0]=0x80;
+if(MAIN_IST) data_rs[0]|=0x01;
+else if(!MAIN_IST) data_rs[0]&=0xfe;
+
+if(St&0x02)data_rs[0]&=0xfd;
+else if(!(St&0x02))  data_rs[0]|=0x02;
+
+if(spc_stat==spc_VZ) data_rs[0]|=BIN8(100);
+else if(spc_stat==spc_OFF) data_rs[0]&=BIN8(11111011);
+
+if((spc_stat==spc_KE)) data_rs[0]|=BIN8(1000);
+else if(spc_stat==spc_OFF) data_rs[0]&=BIN8(11110111);
+
+
+data_rs[1]=*((char*)&Unet);
+data_rs[2]=*(((char*)&Unet)+1);
+
+data_rs[3]=*((char*)&fnet);
+data_rs[4]=*(((char*)&fnet)+1);
+
+
+data_rs[5]=*((char*)&Ubat);
+data_rs[6]=*(((char*)&Ubat)+1);
+data_rs[7]=*((char*)&Ibat);
+data_rs[8]=*(((char*)&Ibat)+1);
+data_rs[9]=t_b;
+
+data_rs[10]=*((char*)&BAT_C_REAL);
+data_rs[11]=*(((char*)&BAT_C_REAL)+1);
+
+data_rs[12]=*((char*)&zar_percent);
+data_rs[13]=*(((char*)&zar_percent)+1);
+
+
+data_rs[14]=BIN8(10000000);
+if(OFFBP1)data_rs[14]&=BIN8(1111111);
+
+data_rs[14]|=St_[0]&(BIN8(11100));
+if(St&0x01)data_rs[14]|=BIN8(1);
+
+data_rs[15]=*((char*)&Us[0]);
+data_rs[16]=*(((char*)&Us[0])+1);
+data_rs[17]=*((char*)&Is[0]);
+data_rs[18]=*(((char*)&Is[0])+1);
+data_rs[19]=t_i[0];
+
+data_rs[20]=BIN8(10000000);
+if(OFFBP2)data_rs[20]&=BIN8(1111111);
+
+data_rs[20]|=St_[1]&(BIN8(11100));
+if(St&0x01)data_rs[20]|=BIN8(1);
+
+data_rs[21]=*((char*)&Us[1]);
+data_rs[22]=*(((char*)&Us[1])+1);
+data_rs[23]=*((char*)&Is[1]);
+data_rs[24]=*(((char*)&Is[1])+1);
+data_rs[25]=t_i[1];
+*/
+
+
+
+bd[0]=0x80;
+if((!(OFFBP1))) bd[0]|=0x01;
+else if(St_[0]&0x01) bd[0]&=0xfe;
+
+
+if(St_[0]&0x1c) bd[0]|=0x02;
+else if(!(St_[0]&0x1c)) bd[0]&=0xfd;
+
+if(St_[0]&0x04) bd[0]|=0x04;
+else if(!(St_[0]&0x04)) bd[0]&=0xfb;
+
+if(St_[0]&0x08) bd[0]|=0x08;
+else if(!(St_[0]&0x08)) bd[0]&=0xf7;
+
+if(St_[0]&0x10) bd[0]|=0x10;
+else if(!(St_[0]&0x10)) bd[0]&=0xef;
+
+if(St&0x01) bd[0]|=0x20;
+else if(!(St&0x01)) bd[0]&=0xdf;
+//bd[0]=0x80;
+bd[1]=0x80;
+if((!(OFFBP2))) bd[1]|=0x01;
+else if(St_[1]&0x01) bd[1]&=0xfe;
+
+if(St_[1]&0x1c) bd[1]|=0x02;
+else if(!(St_[1]&0x1c)) bd[1]&=0xfd;
+
+if(St_[1]&0x04) bd[1]|=0x04;
+else if(!(St_[1]&0x04)) bd[1]&=0xfb;
+
+if(St_[1]&0x08) bd[1]|=0x08;
+else if(!(St_[1]&0x08)) bd[1]&=0xf7;
+
+if(St_[1]&0x10) bd[1]|=0x10;
+else if(!(St_[1]&0x10)) bd[1]&=0xef;
+//bd[1]=0x80;
+bd[2]=0x80;
+if(MAIN_IST) bd[2]|=0x01;
+else if(!MAIN_IST) bd[2]&=0xfe;
+
+if(St&BIN8(10))bd[2]&=0xfd;
+else if(!(St&BIN8(10)))  bd[2]|=0x02;
+
+if(spc_stat==spc_VZ) bd[2]|=0x04;
+else if(spc_stat!=spc_VZ) bd[2]&=0xfb;
+
+if(spc_stat==spc_KE) bd[2]|=0x08;
+else if(spc_stat!=spc_KE) bd[2]&=0xf7;
+//bd[2]=0x80;
+bd[3]=0x80;
+bd[4]=0x80;
+bd[5]=0xc0;
+bd[3]|=(Us[0]&BIN8(1111111));
+bd[4]|=(Us[1]&BIN8(1111111));
+bd[5]|=(((Us[0]>>7)&BIN8(111)));
+bd[5]|=(((Us[1]>>4)&BIN8(111000)));
+		
+bd[6]=0x80;
+bd[7]=0x80;
+bd[8]=0xc0;
+bd[6]|=(Ubat&BIN8(1111111));
+bd[7]|=(Uload&BIN8(1111111));
+bd[8]|=(((Ubat>>7)&BIN8(111)));
+bd[8]|=(((Uload>>4)&BIN8(111000))); 
+
+if(Is[0]>=126)
+	{
+	bd[9]=0x80+126;
+	}
+else 
+	{
+	bd[9]=0x80;
+	bd[9]|=(Is[0]&BIN8(1111111));
+	}
+
+if(Is[1]>=126)
+	{
+	bd[10]=0x80+126;
+	}
+else 
+	{
+	bd[10]=0x80;
+	bd[10]|=(Is[1]&BIN8(1111111));
+	}
+
+//Ibat=-100;
+//bit_minus=1;
+temp=(char)(Ibat/10);
+//temp=(signed char)(-100/10);
+if(!temp) temp=0x80;
+else if(Ibat>0) temp&=0x7f;
+//else if(Ibat<0)  temp=0x80|(((temp&0x7f)^0x7f)+1);
+bd[11]=temp;
+
+temp=(char)t_i[0]&0x7f;
+if (temp<=0) bd[12]=0x80;
+else if(temp>0) bd[12]=0x80+temp;
+
+temp=(char)t_i[1]&0x7f;
+if (temp<=0) bd[13]=0x80;
+else if(temp>0) bd[13]=0x80+temp;
+
+temp=(char)t_b&0x7f;
+if (temp<=0) bd[14]=0x80;
+else if(temp>0) bd[14]=0x80+temp;
+
+bd[15]=(char)(Unet+1);
+
+bd[16]=101;
+
+bd[17]=(char)(((BAT_C_REAL/10)+1)&0x7F);
+
+bd[18]=(char)((zar_percent+1)&0x7f);
+
+/*
+bd[0]=0x80;
+if((!(OFFBP1))) bd[0]|=0x01;
+else if(St_[0]&0x01) bd[0]&=0xfe;
+
+
+if(St_[0]&0x1c) bd[0]|=0x02;
+else if(!(St_[0]&0x1c)) bd[0]&=0xfd;
+
+if(St_[0]&0x04) bd[0]|=0x04;
+else if(!(St_[0]&0x04)) bd[0]&=0xfb;
+
+if(St_[0]&0x08) bd[0]|=0x08;
+else if(!(St_[0]&0x08)) bd[0]&=0xf7;
+
+if(St_[0]&0x10) bd[0]|=0x10;
+else if(!(St_[0]&0x10)) bd[0]&=0xef;
+
+if(St&0x01) bd[0]|=0x20;
+else if(!(St&0x01)) bd[0]&=0xdf;
+//bd[0]=0x80;
+bd[1]=0x80;
+if((!(OFFBP2))) bd[1]|=0x01;
+else if(St_[1]&0x01) bd[1]&=0xfe;
+
+if(St_[1]&0x1c) bd[1]|=0x02;
+else if(!(St_[1]&0x1c)) bd[1]&=0xfd;
+
+if(St_[1]&0x04) bd[1]|=0x04;
+else if(!(St_[1]&0x04)) bd[1]&=0xfb;
+
+if(St_[1]&0x08) bd[1]|=0x08;
+else if(!(St_[1]&0x08)) bd[1]&=0xf7;
+
+if(St_[1]&0x10) bd[1]|=0x10;
+else if(!(St_[1]&0x10)) bd[1]&=0xef;
+//bd[1]=0x80;
+bd[2]=0x80;
+if(MAIN_IST) bd[2]|=0x01;
+else if(!MAIN_IST) bd[2]&=0xfe;
+
+if(St&BIN8(10))bd[2]&=0xfd;
+else if(!(St&BIN8(10)))  bd[2]|=0x02;
+
+if(spc_stat==spc_VZ) bd[2]|=0x04;
+else if(spc_stat!=spc_VZ) bd[2]&=0xfb;
+
+if(spc_stat==spc_KE) bd[2]|=0x08;
+else if(spc_stat!=spc_KE) bd[2]&=0xf7;
+//bd[2]=0x80;
+bd[3]=0x80;
+bd[4]=0x80;
+bd[5]=0xc0;
+bd[3]|=(Us[0]&BIN8(1111111));
+bd[4]|=(Us[1]&BIN8(1111111));
+bd[5]|=(((Us[0]>>7)&BIN8(111)));
+bd[5]|=(((Us[1]>>4)&BIN8(111000)));
+		
+bd[6]=0x80;
+bd[7]=0x80;
+bd[8]=0xc0;
+bd[6]|=(Ubat&BIN8(1111111));
+bd[7]|=(Uload&(1111111));
+bd[8]|=(((Ubat>>7)&BIN8(111)));
+bd[8]|=(((Uload>>4)&BIN8(111000))); 
+
+bd[9]=0x80;
+bd[9]|=(Is[0]&BIN8(1111111));
+
+bd[10]=0x80;
+bd[10]|=(Is[1]&BIN8(1111111));
+//Ibat=-100;
+//bit_minus=1;
+temp=(char)(Ibat/10);
+//temp=(signed char)(-100/10);
+if(!temp) temp=0x80;
+else if(Ibat>0) temp&=0x7f;
+//else if(Ibat<0)  temp=0x80|(((temp&0x7f)^0x7f)+1);
+bd[11]=temp;
+
+temp=(char)t_i[0]&0x7f;
+if (temp<=0) bd[12]=0x80;
+else if(temp>0) bd[12]=0x80+temp;
+
+temp=(char)t_i[1]&0x7f;
+if (temp<=0) bd[13]=0x80;
+else if(temp>0) bd[13]=0x80+temp;
+
+temp=(char)t_b&0x7f;
+if (temp<=0) bd[14]=0x80;
+else if(temp>0) bd[14]=0x80+temp;
+
+bd[15]=(char)(Unet+1);
+
+bd[16]=101;
+
+bd[17]=(char)(((BAT_C_REAL/10)+1)&0x7F);
+
+bd[18]=(char)((zar_percent+1)&0x7f);
+*/
+
+data_rs0[0]=0x80;
+if((!(St_[0]&0x01))||(St&0x04)) data_rs0[0]|=0x01;
+else if(St_[0]&0x01) data_rs0[0]&=0xfe;
+
+if(St_[0]&0x02) data_rs0[0]|=0x02;
+else if(!(St_[0]&0x02)) data_rs0[0]&=0xfd;
+
+if(St_[0]&0x04) data_rs0[0]|=0x04;
+else if(!(St_[0]&0x04)) data_rs0[0]&=0xfb;
+
+if(St_[0]&0x08) data_rs0[0]|=0x08;
+else if(!(St_[0]&0x08)) data_rs0[0]&=0xf7;
+
+if(St_[0]&0x10) data_rs0[0]|=0x10;
+else if(!(St_[0]&0x10)) data_rs0[0]&=0xef;
+
+if(St&0x01) data_rs0[0]|=0x20;
+else if(!(St&0x01)) data_rs0[0]&=0xdf;
+                                  
+
+
+data_rs0[1]=0x80;
+if((!(St_[1]&0x01))||(St&0x04)) data_rs0[1]|=0x01;
+else if(St_[1]&0x01) data_rs0[1]&=0xfe;
+
+if(St_[1]&0x02) data_rs0[1]|=0x02;
+else if(!(St_[1]&0x02)) data_rs0[1]&=0xfd;
+
+if(St_[1]&0x04) data_rs0[1]|=0x04;
+else if(!(St_[1]&0x04)) data_rs0[1]&=0xfb;
+
+if(St_[1]&0x08) data_rs0[1]|=0x08;
+else if(!(St_[1]&0x08)) data_rs0[1]&=0xf7;
+
+if(St_[1]&0x10) data_rs0[1]|=0x10;
+else if(!(St_[1]&0x10)) data_rs0[1]&=0xef;
+
+
+
+data_rs0[0]=0x80;
+if(MAIN_IST) data_rs0[0]|=0x01;
+else if(!MAIN_IST) data_rs0[0]&=0xfe;
+
+if(St&BIN8(10))data_rs0[0]&=0xfd;
+else if(!(St&BIN8(10)))  data_rs0[0]|=0x02;
+
+if(spc_stat==spc_VZ) data_rs0[0]|=0x04;
+else if(spc_stat==spc_OFF) data_rs0[0]&=0xfb;
+
+if(spc_stat==spc_KE) data_rs0[0]|=0x08;
+else if(spc_stat!=spc_KE) data_rs0[0]&=0xf7;
+
+data_rs0[1]=0x80;
+data_rs0[2]=0x80;
+data_rs0[3]=0xc0;
+data_rs0[1]|=(Us[0]&BIN8(1111111));
+data_rs0[2]|=(Us[1]&BIN8(1111111));
+data_rs0[3]|=(((Us[0]>>7)&BIN8(111)));
+data_rs0[3]|=(((Us[1]>>4)&BIN8(111000)));
+		
+data_rs0[4]=0x80;
+data_rs0[5]=0x80;
+data_rs0[6]=0xc0;
+data_rs0[4]|=(Ubat&BIN8(1111111));
+data_rs0[5]|=(Uload&BIN8(1111111));
+data_rs0[6]|=(((Ubat>>7)&BIN8(111)));
+data_rs0[6]|=(((Uload>>4)&BIN8(111000))); 
+
+data_rs0[7]=0x80;
+if(Is[0]>=127)data_rs0[7]=0xff;
+else data_rs0[7]|=(Is[0]&BIN8(1111111));
+
+data_rs0[8]=0x80;
+if(Is[1]>=127)data_rs0[8]=0xff;
+else data_rs0[8]|=(Is[1]&BIN8(1111111));
+//bit_minus=1;
+
+
+temp=(char)(Ibat/10);
+if(!temp) temp=0x80;
+//else if(!bit_minus) temp&=0x7f;
+//else if(bit_minus)  temp=0x80|(((temp&0x7f)^0x7f)+1);
+data_rs0[9]=temp;
+//data_rs0[11]=0xf6;
+//data_rs0[9]=44;
+
+temp=(char)t_i[0]&0x7f;
+if (temp<=0) data_rs0[10]=0x80;
+else if(temp>0) data_rs0[10]=0x80+temp;
+
+temp=(char)t_i[1]&0x7f;
+if (temp<=0) data_rs0[11]=0x80;
+else if(temp>0) data_rs0[11]=0x80+temp;
+
+temp=(char)t_b&0x7f;
+if (temp<=0) data_rs0[12]=0x80;
+else if(temp>0) data_rs0[12]=0x80+temp;
+
+data_rs0[13]=(char)(Unet+1);
+
+//data_rs0[14]=101;
+if(iload>=254)data_rs0[14]=0xff;
+else data_rs0[14]=(char)iload+1;
+
+data_rs0[15]=(char)(((BAT_C_REAL/10)+1)&0x7F);
+
+data_rs0[16]=(char)((zar_percent+1)&0x7f);
+
+
+/*
+data_rs1[0]=0x80;
+if(MAIN_IST) data_rs1[0]|=0x01;
+else if(!MAIN_IST) data_rs1[0]&=0xfe;
+
+if(St&BIN8(10))data_rs1[0]&=0xfd;
+else if(!(St&BIN8(10)))  data_rs1[0]|=0x02;
+
+if(spc_stat==spc_VZ) data_rs1[0]|=0x04;
+else if(spc_stat==spc_OFF) data_rs1[0]&=0xfb;
+
+if(spc_stat==spc_KE) data_rs1[0]|=0x08;
+else if(spc_stat!=spc_KE) data_rs1[0]&=0xf7;
+
+data_rs1[1]=0x80;
+data_rs1[2]=0x80;
+data_rs1[3]=0xc0;
+data_rs1[1]|=(Us[0]&BIN8(1111111));
+data_rs1[2]|=(Us[1]&BIN8(1111111));
+data_rs1[3]|=(((Us[0]>>7)&BIN8(111)));
+data_rs1[3]|=(((Us[1]>>4)&BIN8(111000)));
+		
+data_rs1[4]=0x80;
+data_rs1[5]=0x80;
+data_rs1[6]=0xc0;
+data_rs1[4]|=(Ubat&BIN8(1111111));
+data_rs1[5]|=(Uload&BIN8(1111111));
+data_rs1[6]|=(((Ubat>>7)&BIN8(111)));
+data_rs1[6]|=(((Uload>>4)&BIN8(111000))); 
+
+data_rs1[7]=0x80;
+data_rs1[7]|=(Is[0]&BIN8(1111111));
+
+data_rs1[8]=0x80;
+data_rs1[8]|=(Is[1]&BIN8(1111111));
+//bit_minus=1;
+
+temp_s=(signed char)(Ibat/10);
+if(!temp_s) temp_s=0x80;
+else if(!bit_minus) temp_s&=0x7f;
+else if(bit_minus)  temp_s=0x80|(((temp&0x7f))+1);
+data_rs1[9]=temp_s;
+//data_rs1[11]=0xf6;
+data_rs1[9]=55;
+
+temp=(char)t_i[0]&0x7f;
+if (temp<=0) data_rs1[10]=0x80;
+else if(temp>0) data_rs1[10]=0x80+temp;
+
+temp=(char)t_i[1]&0x7f;
+if (temp<=0) data_rs1[11]=0x80;
+else if(temp>0) data_rs1[11]=0x80+temp;
+
+temp=(char)t_b&0x7f;
+if (temp<=0) data_rs1[12]=0x80;
+else if(temp>0) data_rs1[12]=0x80+temp;
+
+data_rs1[13]=(char)(Unet+1);
+
+//data_rs1[14]=101;
+data_rs1[14]=(char)(fnet-399);
+
+data_rs1[15]=(char)(((BAT_C_REAL/10)+1)&0x7F);
+
+plpl++;
+
+data_rs1[16]=(char)((plpl+1)&0x7f);
+
+data_rs1[17]=1;
+data_rs1[18]=1;
+data_rs1[19]=1;
+data_rs1[20]=1;
+data_rs1[21]=1;
+data_rs1[22]=1;
+data_rs1[23]=1;
+data_rs1[24]=1;
+
+
+
+
+
+data_rs1[0]=0x80;
+if(MAIN_IST) data_rs1[0]|=0x01;
+else if(!MAIN_IST) data_rs1[0]&=0xfe;
+
+if(St&BIN8(10))data_rs1[0]&=0xfd;
+else if(!(St&BIN8(10)))  data_rs1[0]|=0x02;
+
+if(spc_stat==spc_VZ) data_rs1[0]|=0x04;
+else if(spc_stat==spc_OFF) data_rs1[0]&=0xfb;
+
+if(spc_stat==spc_KE) data_rs1[0]|=0x08;
+else if(spc_stat!=spc_KE) data_rs1[0]&=0xf7;
+
+data_rs1[1]=0x80;
+data_rs1[2]=0x80;
+data_rs1[3]=0xc0;
+data_rs1[1]|=(Us[0]&BIN8(1111111));
+data_rs1[2]|=(Us[1]&BIN8(1111111));
+data_rs1[3]|=(((Us[0]>>7)&BIN8(111)));
+data_rs1[3]|=(((Us[1]>>4)&BIN8(111000)));
+		
+data_rs1[4]=0x80;
+data_rs1[5]=0x80;
+data_rs1[6]=0xc0;
+data_rs1[4]|=(Ubat&BIN8(1111111));
+data_rs1[5]|=(Uload&BIN8(1111111));
+data_rs1[6]|=(((Ubat>>7)&BIN8(111)));
+data_rs1[6]|=(((Uload>>4)&BIN8(111000))); 
+
+data_rs1[7]=0x80;
+if(Is[0]>=127)data_rs1[7]=0xff;
+else data_rs1[7]|=(Is[0]&BIN8(1111111));
+
+data_rs1[8]=0x80;
+if(Is[1]>=127)data_rs1[8]=0xff;
+else data_rs1[8]|=(Is[1]&BIN8(1111111));
+//bit_minus=1;
+
+temp=(char)(Ibat/10);
+if(!temp) temp=0x80;
+//else if(!bit_minus) temp&=0x7f;
+//else if(bit_minus)  temp=0x80|(((temp&0x7f))+1);
+data_rs1[9]=temp;
+//data_rs1[11]=0xf6;
+
+
+temp=(char)t_i[0]&0x7f;
+if (temp<=0) data_rs1[10]=0x80;
+else if(temp>0) data_rs1[10]=0x80+temp;
+
+temp=(char)t_i[1]&0x7f;
+if (temp<=0) data_rs1[11]=0x80;
+else if(temp>0) data_rs1[11]=0x80+temp;
+
+temp=(char)t_b&0x7f;
+if (temp<=0) data_rs1[12]=0x80;
+else if(temp>0) data_rs1[12]=0x80+temp;
+
+data_rs1[13]=(char)(Unet+1);
+
+//data_rs1[14]=101;
+/*
+data_rs1[14]=(char)(fnet-399);
+
+data_rs1[15]=(char)(((BAT_C_REAL/10)+1)&0x7F);
+
+//plpl++;
+
+data_rs1[16]=(char)((zar_percent+1)&0x7f);
+
+data_rs1[17]=0;
+if(NUMDT)data_rs1[17]|=(1<<0);
+if(NUMDT>1)data_rs1[17]|=(1<<1);
+if(NUMDT>2)data_rs1[17]|=(1<<2);
+if(NUMSK)data_rs1[17]|=(1<<3);
+if(NUMSK>1)data_rs1[17]|=(1<<4);
+if(NUMSK>2)data_rs1[17]|=(1<<5);
+if(NUMSK>3)data_rs1[17]|=(1<<6);
+
+data_rs1[18]=*((char*)&tout[0]);
+data_rs1[19]=*(((char*)&tout[0])+1);
+data_rs1[20]=0xc;
+data_rs1[21]=0;
+data_rs1[22]=0xf1;
+data_rs1[23]=0xff;
+data_rs1[24]=0;
+if(tout_stat[0]!=tNORM)data_rs1[24]|=(1<<0);
+if(tout_stat[1]!=tNORM)data_rs1[24]|=(1<<1);
+if(tout_stat[2]!=tNORM)data_rs1[24]|=(1<<2);
+if(sk_stat[0]!=skOFF)data_rs1[24]|=(1<<3);
+if(sk_stat[1]!=skOFF)data_rs1[24]|=(1<<4);
+if(sk_stat[2]!=skOFF)data_rs1[24]|=(1<<5);
+if(sk_stat[3]!=skOFF)data_rs1[24]|=(1<<6);
+
+data_rs1[25]=0;
+data_rs1[26]=0;  */
+#endif
+}
+//-----------------------------------------------
 void out_out(void)
 {
 //char temp;

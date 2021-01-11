@@ -460,6 +460,14 @@ extern unsigned short hour_cnt_5hz,hour_cnt_1hz;
 extern char cnt_ind;
 
 //-----------------------------------------------
+//WEB-интерфейс
+extern char uku_set_autorized;
+extern long web_param_input;
+extern char place_holder[70];
+extern short web_cnt_main;
+extern short web_cnt_2hz;
+
+//-----------------------------------------------
 //Отладка
 extern unsigned short rotor_can[6];
 extern unsigned short cnt_sec;
@@ -467,6 +475,7 @@ extern char plazma_suzun;
 extern short plazma_mib,plazma_mib1;
 extern short snmp_plazma;
 extern char plazma_can,plazma_can1,plazma_can2,plazma_can3,plazma_can4;
+extern char web_plazma[5];
 
 extern char bRESET_RESET;
 //-----------------------------------------------

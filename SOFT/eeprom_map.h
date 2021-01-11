@@ -238,6 +238,8 @@
 #define CNT_EVENT_LOG	PTR_EVENT_LOG+2 
 // колличество событий (не более 64) 
 
+#define EE_HTTP_LOCATION			4092
+
 
 extern const short ptr_kt_src[2];
 extern const short ptr_ku_src[2];

@@ -26,7 +26,7 @@
 //   <i> This is the size of a memory pool in bytes. Buffers for
 //   <i> TCPnet packets are allocated from this memory pool.
 //   <i> Default: 8000 bytes
-#define MEM_SIZE       2048
+#define MEM_SIZE       3096
 
 //   <o>Tick Timer interval <10=> 10 ms <20=> 20 ms <25=> 25 ms
 //                          <40=> 40 ms <50=> 50 ms <100=> 100 ms 
@@ -525,7 +525,7 @@
 //   <o>Number of TCP Sockets <1-20>
 //   <i> Number of available TCP sockets
 //   <i> Default: 5
-#define TCP_NUMSOCKS   7
+#define TCP_NUMSOCKS   3
 
 //   <o>Number of Retries <0-20>
 //   <i> How many times TCP module will try to retransmit data
@@ -544,7 +544,7 @@
 //   <i> Default TCP Socket Keep Alive timeout. When it expires
 //   <i> with no TCP data frame send, TCP Connection is closed.
 //   <i> Default: 120
-#define TCP_DEFTOUT    120
+#define TCP_DEFTOUT    20
 
 /* TCP fixed timeouts */
 #define TCP_INIT_RETRY_TOUT 1     /* TCP initial Retransmit period in sec.   */
@@ -555,14 +555,14 @@
 // <e>HTTP Server
 // ==============
 // <i> Enable or disable HTTP Server
-#define HTTP_ENABLE    0
+#define HTTP_ENABLE    1
 
 //   <o>Number of HTTP Sessions <1-10>
 //   <i> Number of simultaneously active HTTP Sessions.
 //   <i> Modify also the number of TCP Sockets because
 //   <i> each HTTP session uses it's own TCP socket
 //   <i> Default: 3
-#define HTTP_NUMSESS   6
+#define HTTP_NUMSESS   2
 
 //   <o>Port Number <1-65535>
 //   <i> Listening port number.

@@ -21,6 +21,7 @@
 #include "snmp_data_file.h" 
 #include "uart0.h"
 #include "full_can.h"
+#include "http_data.h"
 
 extern U8 own_hw_adr[];
 extern U8  snmp_Community[];
@@ -297,6 +298,14 @@ unsigned short hour_cnt_5hz,hour_cnt_1hz;
 char cnt_ind;
 
 //-----------------------------------------------
+//WEB-интерфейс
+char uku_set_autorized=0;
+long web_param_input;
+char place_holder[70]="Новосибирск.Новолуговое";
+short web_cnt_main;
+short web_cnt_2hz;
+
+//-----------------------------------------------
 //Отладка
 unsigned short rotor_can[6];
 unsigned short cnt_sec;
@@ -304,6 +313,7 @@ char plazma_suzun;
 char rele_temp;
 short snmp_plazma;
 char plazma_can,plazma_can1,plazma_can2,plazma_can3,plazma_can4;
+char web_plazma[5];
 
 
 BOOL tick;
@@ -8269,18 +8279,18 @@ while(1)
 
 		samokalibr_drv();
 		ret_ind_hndl();
-		matemat();
-	    	time_drv();
+		matemat_alt();
+		time_drv();
 		kb_drv();
 		zar_superviser_drv();
-	    	u_necc_hndl();
+		u_necc_hndl();
 		out_out();   
 		bat_drv();   
 		rele_drv();  
 		beep_hndl();
 		memo_read(); 
-          plazma_mib=12345;
-          plazma_mib1=123456;
+//          plazma_mib=12345;
+//          plazma_mib1=123456;
 		snmp_data();
 
 		while (bwd_stop)
@@ -8300,6 +8310,7 @@ while(1)
 		{
 		b2Hz=0;
 		info_for_snmp();
+		http_data();
 		}
 										
 	if(b1Hz)

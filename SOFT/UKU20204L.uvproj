@@ -344,7 +344,7 @@
             <uThumb>0</uThumb>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>UKU_VERSION=900, LAN_OFF</Define>
+              <Define>UKU_VERSION=900</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
             </VariousControls>
@@ -679,6 +679,11 @@
               <FileType>1</FileType>
               <FilePath>.\snmp_data_file.c</FilePath>
             </File>
+            <File>
+              <FileName>HTTP_CGI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\HTTP_CGI.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -693,6 +698,16 @@
               <FileName>full_can.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\full_can.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Connecting</GroupName>
+          <Files>
+            <File>
+              <FileName>http_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\http_data.c</FilePath>
             </File>
           </Files>
         </Group>
