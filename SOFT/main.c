@@ -2950,7 +2950,9 @@ else if (ind==iLan_set)
 	ptrs[18]=	"  000.000.000.00*   ";
 	ptrs[19]=	" Адресат для TRAP N5";
 	ptrs[20]=	"  000.000.000.00(   ";
-	ptrs[21]=	" Выход              ";
+	ptrs[21]=	" Пароль установок   ";
+	ptrs[22]=	" WEBинтерфейса >    ";
+	ptrs[23]=	" Выход              ";
 
 	
 	if(!ETH_IS_ON)
@@ -3071,7 +3073,16 @@ else if (ind==iLan_set)
 
 	if(sub_ind==10)community2lcd(sss,'<',sub_ind1,1);
 	else (char)community2lcd(sss,'<',sub_ind1,0);
-	
+
+	for(i=0;i<3;i++)
+		{
+		sss[i]=snmp_web_passw[i];
+		}
+	sss[3]=0;		
+
+	if(sub_ind==21)community2lcd(sss,'>',sub_ind1,1);
+	else community2lcd(sss,'>',sub_ind1,0);
+		
 	//int2lcdyx(snmp_community[0],0,4,0);
 	//int2lcdyx(snmp_community[11],0,9,0);
 	//int2lcdyx(snmp_community[2],0,14,0);
@@ -5658,7 +5669,7 @@ else if (ind==iLan_set)
 	ret(1000);
 
 	si_max=1;
-	if(ETH_IS_ON!=0)si_max=21;
+	if(ETH_IS_ON!=0)si_max=23;
 
 	if(but==butD)
 		{
@@ -5743,11 +5754,16 @@ else if (ind==iLan_set)
 			{
 			sub_ind++;
 			}
-	/*	if((sub_ind==4)&&(index_set==2))
+		if(sub_ind==21) 
 			{
-			index_set=3;
+			//sub_ind=6;
+			index_set=20;
 			sub_ind1=0;
-			}*/
+			}
+		if(sub_ind==22) 
+			{
+			sub_ind++;
+			}
 		
 		gran_char(&sub_ind,0,si_max);
 		}
@@ -5755,6 +5771,10 @@ else if (ind==iLan_set)
 		{
 		sub_ind--;
 		gran_char(&sub_ind,0,si_max);
+		if(sub_ind==22) 
+			{
+			sub_ind--;
+			}
 		if(sub_ind==20) 
 			{
 			sub_ind--;
@@ -6483,7 +6503,40 @@ else if (ind==iLan_set)
 				}
 			speed=1;
 			}
-		}													          
+		}
+	else if(sub_ind==21)
+	    {
+		if(but==butE_)
+	     	{
+	     	sub_ind1++;
+			gran_ring_char(&sub_ind1,0,2);
+	     	}
+		if((but==butR)||(but==butR_))
+			{
+			snmp_web_passw[sub_ind1]++;
+			if(snmp_web_passw[sub_ind1]<32) snmp_web_passw[sub_ind1]=32;
+			else if ((snmp_web_passw[sub_ind1]>32)&&(snmp_web_passw[sub_ind1]<48)) snmp_web_passw[sub_ind1]=48;
+			else if ((snmp_web_passw[sub_ind1]>57)&&(snmp_web_passw[sub_ind1]<65)) snmp_web_passw[sub_ind1]=65;
+			else if ((snmp_web_passw[sub_ind1]>90)&&(snmp_web_passw[sub_ind1]<97)) snmp_web_passw[sub_ind1]=97;
+			else if (snmp_web_passw[sub_ind1]>122) snmp_web_passw[sub_ind1]=32;
+				//gran_ring(&ETH_GW_1,0,255);
+			lc640_write_int(EE_WEB_PASSWORD+(sub_ind1*2),snmp_web_passw[sub_ind1]);
+			speed=1;
+			}
+		if((but==butL)||(but==butL_))
+			{
+			snmp_web_passw[sub_ind1]--;
+			if(snmp_web_passw[sub_ind1]<32) snmp_web_passw[sub_ind1]=122;
+			else if ((snmp_web_passw[sub_ind1]>32)&&(snmp_web_passw[sub_ind1]<48)) snmp_web_passw[sub_ind1]=32;
+			else if ((snmp_web_passw[sub_ind1]>57)&&(snmp_web_passw[sub_ind1]<65)) snmp_web_passw[sub_ind1]=57;
+			else if ((snmp_web_passw[sub_ind1]>90)&&(snmp_web_passw[sub_ind1]<97)) snmp_web_passw[sub_ind1]=90;
+			else if (snmp_web_passw[sub_ind1]>122) snmp_web_passw[sub_ind1]=122;
+			//gran_ring(&ETH_GW_1,0,255);
+			lc640_write_int(EE_WEB_PASSWORD+(sub_ind1*2),snmp_web_passw[sub_ind1]);
+			speed=1;
+			}
+		}															          
+															          
     else if(sub_ind==si_max)
 	     {
 	     if(but==butE)

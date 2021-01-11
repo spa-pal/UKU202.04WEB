@@ -239,7 +239,7 @@ while (dat);
 			char str_buff[4];
         	web_plazma[1]++;
 			
-			if ((str_scomp (varr[0]+6, /*snmp_web_passw*/"123") == __TRUE)&&(len == 9)) 
+			if ((str_scomp (varr[0]+6, snmp_web_passw) == __TRUE)&&(len == 9)) 
 				{
 				uku_set_autorized=1;
 				psw_err=0;
@@ -1304,11 +1304,11 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		/* меню установок */
       	switch (env[1]) {
         	case 'n':
-          		len = sprintf((char *)buf,(const char *)&env[3],66);
+          		len = sprintf((char *)buf,(const char *)&env[3],2);
           		break;
         	case '0':
           		switch (env[2]) {
-/*		        	case '1':
+		        	case '1':
 		          		len = sprintf((char *)buf,(const char *)&env[4],AUSW_MAIN_NUMBER," ");
 		          		break;
 		     		case '2':
@@ -1317,7 +1317,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		     		case '3':
 		          		len = sprintf((char *)buf,(const char *)&env[4],(ZV_ON==1)?1:0," ");
 		          		break;
-		     		case '4':
+/*		     		case '4':
 		          		len = sprintf((char *)buf,(const char *)&env[4],(PAR==1)?1:0," ");
 		          		break;
 		     		case '5':

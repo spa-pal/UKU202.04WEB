@@ -163,6 +163,11 @@ for(i=0;i<10;i++)
 	{
 	snmp_community[i]=lc640_read(EE_COMMUNITY+(i*2));
 	}
+for(i=0;i<3;i++)
+	{
+	snmp_web_passw[i]=lc640_read(EE_WEB_PASSWORD+(i*2));
+	snmp_web_passw[3]=0;
+	}
 }
 
 
