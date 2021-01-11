@@ -8279,7 +8279,7 @@ while(1)
 
 		samokalibr_drv();
 		ret_ind_hndl();
-		matemat_alt();
+		matemat();
 		time_drv();
 		kb_drv();
 		zar_superviser_drv();

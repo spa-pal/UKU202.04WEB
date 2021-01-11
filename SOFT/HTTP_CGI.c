@@ -767,9 +767,9 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 			case '0':
 				
 				switch (env[2]) {
-				/*	case '1':
+					case '1':
 						//len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯ1?°абвгдеёжзийклмнопрстуфхцчшщьыъэюя"));
-						if(AUSW_MAIN==24120)
+						/*if(AUSW_MAIN==24120)
 							{
 							if(NUMIST==2)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/24-120А-2/4"));
 							else if(NUMIST==3)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/24-120А-3/4"));
@@ -792,32 +792,32 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 						else if(AUSW_MAIN==4883)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП380/48-80А-4/4 "));
 						else if(AUSW_MAIN==48123)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП380/48-120А-4/4"));
 						else if(AUSW_MAIN==48123)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП380/48-120А-4/4"));
-						else 						len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/48-120А-4/4"));
+						else*/ 						len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/48-120А-4/4"));
 					break;
 			        case '2':
 			          	len = sprintf((char *)buf,(const char *)&env[4],AUSW_MAIN_NUMBER);
 					break;
 			        case '3':
 			          	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder(place_holder));
-					break;*/
+					break;
 			        case '4':  	//количество батарей
 			          	len = sprintf((char *)buf,(const char *)&env[4],NUMBAT);
 					break;
 			        case '5':	//количество источников
 						len = sprintf((char *)buf,(const char *)&env[4],NUMIST);
 					break;
-			        /*case '6':	//количество инверторов
-//			          	len = sprintf((char *)buf,(const char *)&env[4],NUMINV);
+			        case '6':	//количество инверторов
+			          	len = sprintf((char *)buf,(const char *)&env[4],0);
 					break;
 			        case '7': 	//количество байпасов
-//			          	len = sprintf((char *)buf,(const char *)&env[4],NUMBYPASS);
+			          	len = sprintf((char *)buf,(const char *)&env[4],0);
 					break;
 			        case '8': 	//количество сухих контактов
-			          	len = sprintf((char *)buf,(const char *)&env[4],NUMSK);
+			          	len = sprintf((char *)buf,(const char *)&env[4],0);
 					break;
 			        case '9': 	//количество внешних датчиков температуры
-			          	len = sprintf((char *)buf,(const char *)&env[4],NUMDT);
-					break;*/
+			          	len = sprintf((char *)buf,(const char *)&env[4],0);
+					break;
 				}
 		  	break;
 		}
