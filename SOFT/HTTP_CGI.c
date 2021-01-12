@@ -769,30 +769,47 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 				switch (env[2]) {
 					case '1':
 						//len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("¿¡¬√ƒ≈®∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ‹€⁄›ﬁﬂ1?∞‡·‚„‰Â∏ÊÁËÈÍÎÏÌÓÔÒÚÛÙıˆ˜¯˘¸˚˙˝˛ˇ"));
-						/*if(AUSW_MAIN==24120)
-							{
-							if(NUMIST==2)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-120¿-2/4"));
-							else if(NUMIST==3)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-120¿-3/4"));
-							else					len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-120¿-4/4"));
-							}
-						else if(AUSW_MAIN==24210)
-							{
-							if(NUMIST==3)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-210¿-3/7"));
-							else if(NUMIST==4)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-210¿-4/7"));
-							else if(NUMIST==5)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-210¿-5/7"));
-							else if(NUMIST==6)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-210¿-6/7"));
-							else					len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-210¿-7/7"));
-							}
-						else if(AUSW_MAIN==4880)
-							{
-							if(NUMIST==3)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-80¿-3/4 "));
-							else					len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-80¿-4/4 "));
-							}
+						#if(UKU_VERSION==300)		
+						if(AUSW_MAIN==2424)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-24¿"));
+						else if(AUSW_MAIN==2412)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-12¿"));
+						else if(AUSW_MAIN==6010)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/60-10¿"));
+						else if(AUSW_MAIN==4810)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-10¿"));
+						else if(AUSW_MAIN==6005)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/60-5¿"));
+						else if(AUSW_MAIN==4805)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-5¿"));
+						#endif //(UKU_VERSION==300)				{
 
-						else if(AUSW_MAIN==4883)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ380/48-80¿-4/4 "));
-						else if(AUSW_MAIN==48123)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ380/48-120¿-4/4"));
-						else if(AUSW_MAIN==48123)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ380/48-120¿-4/4"));
-						else*/ 						len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-120¿-4/4"));
+						#if(UKU_VERSION==900)		
+						if(AUSW_MAIN==2450)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-50¿"));
+						else if(AUSW_MAIN==2425)	
+							{
+							if(NUMIST==1)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-25¿-1¡œ—"));
+							else if(NUMIST==2)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/24-25¿-2¡œ—"));
+							}
+						else if(AUSW_MAIN==6024)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/60-24¿"));
+						else if(AUSW_MAIN==6012)	
+							{
+							if(NUMIST==1)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/60-12¿-1¡œ—"));
+							else if(NUMIST==2)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/60-12¿-2¡œ—"));
+							}
+						else if(AUSW_MAIN==4824)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-24¿"));
+						else if(AUSW_MAIN==4812)	
+							{
+							if(NUMIST==1)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-12¿-1¡œ—"));
+							else if(NUMIST==2)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-12¿-2¡œ—"));
+							}
+						else if(AUSW_MAIN==6030)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/60-30¿"));
+						else if(AUSW_MAIN==6015)	
+							{
+							if(NUMIST==1)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/60-15¿-1¡œ—"));
+							else if(NUMIST==2)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/60-15¿-2¡œ—"));
+							}
+						else if(AUSW_MAIN==4840)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-40¿"));
+						else if(AUSW_MAIN==4820)	
+							{
+							if(NUMIST==1)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-20¿-1¡œ—"));
+							else if(NUMIST==2)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("»¡›œ220/48-20¿-2¡œ—"));
+							}
+						#endif //(UKU_VERSION==900)				{
 					break;
 			        case '2':
 			          	len = sprintf((char *)buf,(const char *)&env[4],AUSW_MAIN_NUMBER);
@@ -1304,7 +1321,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		/* ÏÂÌ˛ ÛÒÚ‡ÌÓ‚ÓÍ */
       	switch (env[1]) {
         	case 'n':
-          		len = sprintf((char *)buf,(const char *)&env[3],2);
+          		len = sprintf((char *)buf,(const char *)&env[3],1);
           		break;
         	case '0':
           		switch (env[2]) {
