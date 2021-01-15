@@ -276,10 +276,10 @@ while (dat);
 					for (i=0;i<70;i++)lc640_write(EE_HTTP_LOCATION+i,place_holder[i]);
 					}
 
-/**				else if(strstr (varr[0], "par_"))
+				else if(strstr (varr[0], "main_bps_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
-					lc640_write_int(EE_PAR,(short)(web_param_input&0x00000001UL));
+					lc640_write_int(EE_MAIN_BPS,(short)(web_param_input&0x00000001UL));
 
 					}
 				else if(strstr (varr[0], "zv_on_"))
@@ -295,7 +295,7 @@ while (dat);
 
 					}				
 
-				else if(strstr (varr[0], "un_max_"))
+/**				else if(strstr (varr[0], "un_max_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_UMAXN,(short)(web_param_input&0x0000ffffUL));
@@ -1321,7 +1321,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		/* меню установок */
       	switch (env[1]) {
         	case 'n':
-          		len = sprintf((char *)buf,(const char *)&env[3],1);
+          		len = sprintf((char *)buf,(const char *)&env[3],5);
           		break;
         	case '0':
           		switch (env[2]) {
@@ -1334,8 +1334,8 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		     		case '3':
 		          		len = sprintf((char *)buf,(const char *)&env[4],(ZV_ON==1)?1:0," ");
 		          		break;
-/*		     		case '4':
-		          		len = sprintf((char *)buf,(const char *)&env[4],(PAR==1)?1:0," ");
+		     		case '4':
+		          		len = sprintf((char *)buf,(const char *)&env[4],(MAIN_IST==1)?2:1," ");
 		          		break;
 		     		case '5':
 		          		len = sprintf((char *)buf,(const char *)&env[4],(AV_OFF_AVT==1)?1:0," ");
@@ -1344,14 +1344,14 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		         		len = sprintf((char *)buf,(const char *)&env[4],UMN," ");
 		          		break;
 		     		case '7':
-		         		len = sprintf((char *)buf,(const char *)&env[4],UMAXN," ");
+		         		len = sprintf((char *)buf,(const char *)&env[4],UMN," ");
 		          		break;
 		     		case '8':
-		         		len = sprintf((char *)buf,(const char *)&env[4],FORVARDBPSCHHOUR," ");
+		         		len = sprintf((char *)buf,(const char *)&env[4],UMN," ");
 		          		break;		     		
 					case '9':
-		         		len = sprintf((char *)buf,(const char *)&env[4],0,pal_cyr_coder("Новосибирск Новолуговое 123456789012345678901234"));
-		          		break;*/																				   
+		         		len = sprintf((char *)buf,(const char *)&env[4],UMN," ");
+		          		break;																				   
 				}
 				break;
         	case '1':
@@ -1610,9 +1610,9 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 					/*	len = sprintf((char *)buf,(const char *)&env[4],(signed)SNTP_GMT," ");*/
 		          		break;		     		
 					case '9':
-		         	/*	if(lc640_read_int(EE_SNTP_WEB_ENABLE)==1)temp=0;
+		         		if(lc640_read_int(EE_SNTP_WEB_ENABLE)==1)temp=0;
 						else temp=1;
-						len = sprintf((char *)buf,(const char *)&env[4],temp," "); */
+						len = sprintf((char *)buf,(const char *)&env[4],temp," "); 
 		          		break;																				   
 				}
 				break;

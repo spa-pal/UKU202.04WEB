@@ -161,10 +161,10 @@
 				var numOfSets = inputData.numOfSet ;/*set_dict.length-1;*/
 				var set = new Array(100);
 				set[0] = inputData.s01.split(",");/*серийный номер*/ 
-				/*set[1] = inputData.s02.split(",");/*расположение*/
-				/*set[2] = inputData.s03.split(",");/*звуковая сигнализация*/
-				/*set[3] = inputData.s04.split(",");/*параллельная работа источников*/
-				/*set[4] = inputData.s05.split(",");/*автоматическое снятие сигнала аварий*/ 
+				set[1] = inputData.s02.split(",");/*расположение*/
+				set[2] = inputData.s03.split(",");/*звуковая сигнализация*/
+				set[3] = inputData.s04.split(",");/*основной источник*/
+				set[4] = inputData.s05.split(",");/*автоматическое снятие сигнала аварий*/ 
 				/*set[5] = inputData.s06.split(",");/*Umin.сети*/ 
 				/*set[6] = inputData.s07.split(",");/*Umax.сети*/ 
 				/*set[7] = inputData.s08.split(",");/*время ротации*/ 
@@ -347,5 +347,6 @@
 
 </div>
 <div id="footer">
+	<a class="spa_adress" href="http://vorpostnsk.ru" target="_blank">"Системы промавтоматики"</a>
 </div>
 </body></html>

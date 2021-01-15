@@ -240,6 +240,7 @@
 
 #define	EE_WEB_PASSWORD				4092
 #define EE_HTTP_LOCATION			4100
+#define EE_SNTP_WEB_ENABLE			4200
 
 
 extern const short ptr_kt_src[2];
