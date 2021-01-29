@@ -23,6 +23,7 @@
 		function dataUpdate(num){
 			var data = {"num" : num};
 			$.getJSON( "log.cgx", data, success );
+			console.log("Запрос 1");
 		}
 		
 		function palStr2HexDecoder(input) {
