@@ -62,6 +62,8 @@
 #define EE_IU2		EE_IU1+2
 #define EE_IU3		EE_IU2+2
 #define EE_IU4		EE_IU3+2
+#define EE_SNTP_ENABLE		EE_IU4+2
+#define EE_SNTP_GMT			EE_SNTP_ENABLE+2
 
 
 #define SECTOR_AUSW  		SECTOR_KOEF+150
@@ -79,8 +81,8 @@
 #define EE_AUSW_PDH			EE_AUSW_RS232+2
 #define EE_AUSW_SDH			EE_AUSW_PDH+2
 #define EE_AUSW_ETH			EE_AUSW_SDH+2
-#define SECTOR_BAT  SECTOR_KOEF+200
 
+#define SECTOR_BAT  		SECTOR_KOEF+200
 #define EE_BAT_IS_ON          SECTOR_BAT
 #define EE_BAT_DAY_OF_ON      SECTOR_BAT+2
 #define EE_BAT_MONTH_OF_ON    SECTOR_BAT+4
@@ -241,6 +243,12 @@
 #define	EE_WEB_PASSWORD				4092
 #define EE_HTTP_LOCATION			4100
 #define EE_SNTP_WEB_ENABLE			4200
+#define EE_UMAXN					4202
+#define EE_SNTP_WEB_ENABLE			4204
+#define EE_SNTP_IP1					4206
+#define EE_SNTP_IP2					4208
+#define EE_SNTP_IP3					4210
+#define EE_SNTP_IP4					4212
 
 
 extern const short ptr_kt_src[2];

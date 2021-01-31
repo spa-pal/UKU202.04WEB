@@ -709,6 +709,11 @@
               <FileType>1</FileType>
               <FilePath>.\http_data.c</FilePath>
             </File>
+            <File>
+              <FileName>sntp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\sntp.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -194,7 +194,7 @@ typedef enum {iMn,iSrv_sl,iNet,iSet,iBat,iSrc,iS2,iSet_prl,iK_prl,iDnd,iK,
 	iSpcprl,iSpc,k,Crash_0,Crash_1,iKednd,
 	iLoad,iSpc_prl_vz,iSpc_prl_ke,iKe,iVz,iAVAR,iStr,iVrs,iPrltst,iApv,
 	iK_src,iK_bat,iK_load,iK_net,iTst,iTst_klbr,iTst_BPS1,iTst_BPS2,
-	iTst_BPS12,iDebug,iDef,iSet_st_prl,iK_pdp,iSet_T,iDeb,iJ_bat,
+	iTst_BPS12,iDebug,iDef,iSet_st_prl,iK_pdp,iSet_T,iSet_T_avt,iDeb,iJ_bat,
 	iPrl_bat_in_out,iPdp1,iJAv_sel,iJAv_net_sel,iJAv_net,iJAv_src1,
 	iJAv_src2,iJAv_bat,iJAv_bat_sel,iAusw,iAusw_prl,iAusw_set,iK_t_out,
 	iJ_bat_ke_sel,iJ_bat_ke,iJ_bat_vz_sel,iJ_bat_vz,iJ_bat_wrk_sel,iJ_bat_wrk,
@@ -375,6 +375,8 @@ typedef enum {mnON=0x55,mnOFF=0xAA}enum_MNEMO_ON;
 extern enum_MNEMO_ON MNEMO_ON;
 extern signed short MNEMO_TIME;
 
+extern signed short SNTP_ENABLE;
+extern signed short SNTP_GMT;
 
 //-----------------------------------------------
 //Состояние системы

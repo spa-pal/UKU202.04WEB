@@ -153,7 +153,10 @@ SEC_AVZ=lc640_read_int(EE_SEC_AVZ);
 DATE_AVZ=lc640_read_int(EE_DATE_AVZ);
 MONTH_AVZ=lc640_read_int(EE_MONTH_AVZ);
 if(!((MONTH_AVZ>0)&&(MONTH_AVZ<13)))MONTH_AVZ=0;
-YEAR_AVZ=lc640_read_int(EE_YEAR_AVZ); 
+YEAR_AVZ=lc640_read_int(EE_YEAR_AVZ);
+ 
+SNTP_ENABLE=lc640_read_int(EE_SNTP_ENABLE);
+SNTP_GMT=lc640_read_int(EE_SNTP_GMT);
 
 for(i=0;i<64;i++)
 	{
