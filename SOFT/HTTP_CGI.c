@@ -295,6 +295,32 @@ while (dat);
 
 					}				
 
+				else if(strstr (varr[0], "mnemo_"))
+					{
+					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
+					if((short)(web_param_input&0x0000ffffUL)==0)lc640_write_int(EE_MNEMO_ON,0);
+					else if((short)(web_param_input&0x0000ffffUL)==1)
+						{
+						lc640_write_int(EE_MNEMO_ON,1);
+						lc640_write_int(EE_MNEMO_TIME,10);
+						}
+					else if((short)(web_param_input&0x0000ffffUL)==2)
+						{
+						lc640_write_int(EE_MNEMO_ON,1);
+						lc640_write_int(EE_MNEMO_TIME,30);
+						}
+					else if((short)(web_param_input&0x0000ffffUL)==3)
+						{
+						lc640_write_int(EE_MNEMO_ON,1);
+						lc640_write_int(EE_MNEMO_TIME,60);
+						}
+					else if((short)(web_param_input&0x0000ffffUL)==4)
+						{
+						lc640_write_int(EE_MNEMO_ON,1);
+						lc640_write_int(EE_MNEMO_TIME,300);
+						}
+
+					}
 /**				else if(strstr (varr[0], "un_max_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
@@ -1316,7 +1342,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		/* меню установок */
       	switch (env[1]) {
         	case 'n':
-          		len = sprintf((char *)buf,(const char *)&env[3],5);
+          		len = sprintf((char *)buf,(const char *)&env[3],6);
           		break;
         	case '0':
           		switch (env[2]) {
@@ -1336,7 +1362,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		          		len = sprintf((char *)buf,(const char *)&env[4],(AV_OFF_AVT==1)?1:0," ");
 		          		break;
 		     		case '6':
-		         		len = sprintf((char *)buf,(const char *)&env[4],UMN," ");
+		         		len = sprintf((char *)buf,(const char *)&env[4],(MNEMO_ON==mnON)?1:0," ");
 		          		break;
 		     		case '7':
 		         		len = sprintf((char *)buf,(const char *)&env[4],UMN," ");

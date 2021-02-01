@@ -96,6 +96,7 @@ signed short TMAX;
 signed short AV_OFF_AVT;
 signed short USIGN;
 signed short UMN;
+signed short UMAXN;
 signed short ZV_ON;
 signed short IKB;
 signed short KVZ;
@@ -2506,19 +2507,20 @@ const char sm320[]	={" Ñòğóêòóğà          "};	*/
 	ptrs[15]=	" Uá20°=      #Â     ";
 	ptrs[16]=	" Uñèãí=      ^Â     ";
 	ptrs[17]=	" Umin.ñåòè=  &Â     ";
-	ptrs[18]=	" U0á=        >Â     ";
-	ptrs[19]=	" Iáê.=       jÀ     ";
-	ptrs[20]=	" Iç.ìàõ.=    JÀ     ";
-	ptrs[21]=	" Imax=       ]A     ";
-	ptrs[22]=	" Kimax=      {      ";
-	ptrs[23]=	" Kâûğ.çàğ.=    [    ";
-	ptrs[24]=	" Tç.âêë.à.ñ. !ñ     ";
-	ptrs[25]=	" tmax=       $°C    ";
-	ptrs[26]=	" Ethernet           ";
-	ptrs[27]=	" Âíåøíèå äàò÷èêè    ";
-	ptrs[28]=	sm_exit; 
-	ptrs[29]=	" Êàëèáğîâêè         "; 
-	ptrs[30]=	" Òåñò               ";        
+	ptrs[18]=	" Umax.ñåòè=  FÂ     ";
+	ptrs[19]=	" U0á=        >Â     ";
+	ptrs[20]=	" Iáê.=       jÀ     ";
+	ptrs[21]=	" Iç.ìàõ.=    JÀ     ";
+	ptrs[22]=	" Imax=       ]A     ";
+	ptrs[23]=	" Kimax=      {      ";
+	ptrs[24]=	" Kâûğ.çàğ.=    [    ";
+	ptrs[25]=	" Tç.âêë.à.ñ. !ñ     ";
+	ptrs[26]=	" tmax=       $°C    ";
+	ptrs[27]=	" Ethernet           ";
+	ptrs[28]=	" Âíåøíèå äàò÷èêè    ";
+	ptrs[29]=	sm_exit; 
+	ptrs[30]=	" Êàëèáğîâêè         "; 
+	ptrs[31]=	" Òåñò               ";        
 	
 	if((sub_ind-index_set)>2)index_set=sub_ind-2;
 	else if(sub_ind<index_set)index_set=sub_ind;
@@ -2554,7 +2556,8 @@ const char sm320[]	={" Ñòğóêòóğà          "};	*/
 	int2lcd(KIMAX,'{',1);
 	int2lcd(IZMAX,'J',1); 
 	int2lcd(TZAS,'!',0);
-	int2lcd(TBAT,'q',0); 
+	int2lcd(TBAT,'q',0);
+	int2lcd(UMAXN,'F',0); 
 	
 	     
 	} 
@@ -5117,12 +5120,13 @@ else if(ind==iSet)
 	if(but==butD)
 		{
 		sub_ind++;
+		if(sub_ind==2)index_set=1;
 		if(sub_ind==3)sub_ind=4;
 		if(sub_ind==8)index_set=7;
 		if(sub_ind==9)sub_ind=10;
 		if(sub_ind==11)index_set=10;
 		if(sub_ind==12)sub_ind=13;
-		gran_char(&sub_ind,0,30);
+		gran_char(&sub_ind,0,31);
 		}
 	else if(but==butU)
 		{
@@ -5130,11 +5134,11 @@ else if(ind==iSet)
 		if(sub_ind==3)sub_ind=2;
 		if(sub_ind==9)sub_ind=8;
 		if(sub_ind==12)sub_ind=11;
-		gran_char(&sub_ind,0,30);
+		gran_char(&sub_ind,0,31);
 		}
 	else if(but==butD_)
 		{
-		sub_ind=28;
+		sub_ind=29;
 		}
 		
 	else if(sub_ind==0)
@@ -5300,8 +5304,17 @@ else if(ind==iSet)
 	     lc640_write_int(EE_UMN,UMN);
 	     speed=1;
 	     }	
-
-	else if(sub_ind==18)
+ 	else if(sub_ind==18)
+	     {
+	     if(but==butR)UMAXN++;
+	     else if(but==butR_)UMAXN+=10;
+	     else if(but==butL)UMAXN--;
+	     else if(but==butL_)UMAXN-=10;
+	     gran(&UMAXN,1,300);
+	     lc640_write_int(EE_UMAXN,UMAXN);
+	     speed=1;
+	     }
+	else if(sub_ind==19)
 	     {
 	     if(but==butR)U0B++;
 	     else if(but==butR_)U0B+=10;
@@ -5312,7 +5325,7 @@ else if(ind==iSet)
 	     speed=1;
 	     }	
 	     
-	else if(sub_ind==19)
+	else if(sub_ind==20)
 	     {
 	     if(but==butR)IKB++;
 	     else if(but==butR_)IKB+=10;
@@ -5323,7 +5336,7 @@ else if(ind==iSet)
 	     speed=1;
 	     }		
             
-	else if(sub_ind==20)
+	else if(sub_ind==21)
 	     {
 	     if(but==butR)IZMAX++;
 	     else if(but==butR_)IZMAX+=10;
@@ -5334,7 +5347,7 @@ else if(ind==iSet)
 	     speed=1;
 	     }   
 
-	else if(sub_ind==21)
+	else if(sub_ind==22)
 	     {
 	     if(but==butR)IMAX++;
 	     else if(but==butR_)IMAX+=10;
@@ -5345,7 +5358,7 @@ else if(ind==iSet)
 	     speed=1;
 	     }		
 	     
-	else if(sub_ind==22)
+	else if(sub_ind==23)
 	     {
 	     if(but==butR)KIMAX++;
 	     else if(but==butR_)KIMAX+=10;
@@ -5356,7 +5369,7 @@ else if(ind==iSet)
 	     speed=1;
 	     }
 	
-	else if(sub_ind==23)
+	else if(sub_ind==24)
 	     {
 	     if ((but==butR)||(but==butR_))KVZ+=5;
 		if ((but==butL)||(but==butL_))KVZ-=5;
@@ -5365,7 +5378,7 @@ else if(ind==iSet)
 	     speed=1;
 	     }
 	     
-	else if(sub_ind==24)
+	else if(sub_ind==25)
 		{
 		if ((but==butR)||(but==butR_))TZAS++;
 		if ((but==butL)||(but==butL_))TZAS--;
@@ -5374,7 +5387,7 @@ else if(ind==iSet)
 		speed=1; 
 		}	
 			       	        
-	else if(sub_ind==25)
+	else if(sub_ind==26)
 	     {
 	     if(but==butR)TMAX++;
 	     else if(but==butR_)TMAX+=10;
@@ -5385,7 +5398,7 @@ else if(ind==iSet)
 	     speed=1;
 	     }	
 
-    else if(sub_ind==26)
+    else if(sub_ind==27)
 		{
 		if(but==butE)
 		     {
@@ -5394,7 +5407,7 @@ else if(ind==iSet)
 		     }
 		}		
 		     	     	     		     	     
-	else if(sub_ind==27)
+	else if(sub_ind==28)
 		{
 		if(but==butE)
 		     {
@@ -5402,7 +5415,7 @@ else if(ind==iSet)
 		     ret(1000);
 		     }
 		}		
-	else if(sub_ind==28)
+	else if(sub_ind==29)
 		{
 		if(but==butE)
 		     {
@@ -5410,7 +5423,7 @@ else if(ind==iSet)
 		     ret(0);
 		     }
 		}		
-	else if(sub_ind==29)
+	else if(sub_ind==30)
 		{
 		if(but==butE)
 		     {		
@@ -5419,7 +5432,7 @@ else if(ind==iSet)
 			ret(50);
 			}						
 		}			
-	else if(sub_ind==30)
+	else if(sub_ind==31)
 		{
 		if(but==butE)
 		     {
@@ -8527,7 +8540,7 @@ FullCAN_SetFilter(0,0x0e9);
 UARTInit(0, 9600);	/* baud rate setting */
 
 watchdog_enable();
-
+time_sinc_hndl_main_cnt=20L;
 
 while(1)
      {
@@ -8653,6 +8666,7 @@ while(1)
 			{
 			rs232_data_out_1();
 			}
+		time_sinc_hndl();
 		}
      }
 }

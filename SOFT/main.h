@@ -260,6 +260,7 @@ extern signed short TMAX;
 extern signed short AV_OFF_AVT;
 extern signed short USIGN;
 extern signed short UMN;
+extern signed short UMAXN;
 extern signed short ZV_ON;
 extern signed short IKB;
 extern signed short KVZ;

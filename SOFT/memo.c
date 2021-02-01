@@ -39,6 +39,7 @@ TMAX=lc640_read_int(EE_TMAX);
 //C_BAT=lc640_read_int(EE_C_BAT);
 USIGN=lc640_read_int(EE_USIGN);
 UMN=lc640_read_int(EE_UMN);
+UMAXN=lc640_read_int(EE_UMAXN);
 ZV_ON=lc640_read_int(EE_ZV_ON);
 IKB=lc640_read_int(EE_IKB);
 KVZ=lc640_read_int(EE_KVZ);
