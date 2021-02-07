@@ -266,6 +266,7 @@ extern signed short IKB;
 extern signed short KVZ;
 extern signed short IMAX;
 extern signed short KIMAX;
+extern signed short IMIN;
 extern signed short APV_ON;
 extern signed short IZMAX;
 extern signed short U0B;

@@ -112,6 +112,7 @@ signed short snmp_max_current_koef;
 signed short snmp_up_charge_koef;
 signed short snmp_powerup_psu_timeout;
 signed short snmp_max_temperature;
+signed short snmp_min_current;
 
 //-----------------------------------------------
 void snmp_data (void) 
@@ -209,6 +210,7 @@ snmp_control_current=IKB;
 snmp_max_charge_current=IZMAX;
 snmp_max_current=IMAX;
 snmp_max_current_koef=KIMAX;
+snmp_min_current=IMIN;
 snmp_up_charge_koef=KVZ;
 snmp_powerup_psu_timeout=TZAS;
 snmp_max_temperature=TMAX;
@@ -352,11 +354,11 @@ if(mode==MIB_WRITE)
 }
 
 //-----------------------------------------------
-void snmp_max_current_koef_write (int mode)
+void snmp_min_current_write (int mode)
 {
 if(mode==MIB_WRITE)
 	{
-     lc640_write_int(EE_KIMAX,snmp_max_current_koef);
+     lc640_write_int(EE_IMIN,snmp_min_current);
 	}
 }
 

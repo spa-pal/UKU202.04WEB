@@ -30,8 +30,9 @@
 #define EE_ZV_ON	EE_UMN+2
 #define EE_IKB		EE_ZV_ON+2
 #define EE_KVZ		EE_IKB+2
-#define EE_IMAX	EE_KVZ+2
-#define EE_KIMAX	EE_IMAX+2
+#define EE_IMAX		EE_KVZ+2
+#define EE_KIMAX	EE_IMAX+2	
+#define EE_IMIN		EE_KIMAX
 #define EE_APV_ON	EE_KIMAX+2
 #define EE_IZMAX	EE_APV_ON+2
 #define EE_U0B		EE_IZMAX+2

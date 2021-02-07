@@ -279,7 +279,7 @@ while (dat);
 				else if(strstr (varr[0], "main_bps_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
-					lc640_write_int(EE_MAIN_BPS,(short)(web_param_input&0x00000001UL));
+					lc640_write_int(EE_MAIN_BPS,((short)(web_param_input&0x00000001UL))-1);
 
 					}
 				else if(strstr (varr[0], "zv_on_"))
@@ -299,12 +299,16 @@ while (dat);
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					if((short)(web_param_input&0x0000ffffUL)==0)lc640_write_int(EE_MNEMO_ON,0);
-					else if((short)(web_param_input&0x0000ffffUL)==1)
+					else if((short)(web_param_input&0x0000ffffUL))
 						{
-						lc640_write_int(EE_MNEMO_ON,1);
-						lc640_write_int(EE_MNEMO_TIME,10);
+						short tempSS=(short)(web_param_input&0x0000ffffUL);
+						if((tempSS>=5)&&(tempSS<=300))
+							{
+							lc640_write_int(EE_MNEMO_ON,mnON);
+							lc640_write_int(EE_MNEMO_TIME,tempSS);
+							}
 						}
-					else if((short)(web_param_input&0x0000ffffUL)==2)
+				/*	else if((short)(web_param_input&0x0000ffffUL)==2)
 						{
 						lc640_write_int(EE_MNEMO_ON,1);
 						lc640_write_int(EE_MNEMO_TIME,30);
@@ -318,7 +322,7 @@ while (dat);
 						{
 						lc640_write_int(EE_MNEMO_ON,1);
 						lc640_write_int(EE_MNEMO_TIME,300);
-						}
+						}  */
 
 					}
 /**				else if(strstr (varr[0], "un_max_"))
@@ -327,19 +331,26 @@ while (dat);
 					lc640_write_int(EE_UMAXN,(short)(web_param_input&0x0000ffffUL));
 
 					}		
-					
+					*/
 				else if(strstr (varr[0], "un_min_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_UMN,(short)(web_param_input&0x0000ffffUL));
 
-					}	
+					}
+				else if(strstr (varr[0], "un_max_"))
+					{
+					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
+					lc640_write_int(EE_UMAXN,(short)(web_param_input&0x0000ffffUL));
+
+					}
+					/*						
 				else if(strstr (varr[0], "rot_t_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_FORVARDBPSCHHOUR,(short)(web_param_input&0x0000ffffUL));
 
-					}	
+					}*/	
 				else if(strstr (varr[0], "i_max_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
@@ -358,7 +369,7 @@ while (dat);
 					lc640_write_int(EE_UMAX,(short)(web_param_input&0x0000ffffUL));
 
 					}
-				else if(strstr (varr[0], "u_min_i_"))
+			/*	else if(strstr (varr[0], "u_min_i_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					DU=UB20-((short)(web_param_input&0x0000ffffUL));
@@ -412,24 +423,24 @@ while (dat);
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_VZ_HR,(short)(web_param_input&0x0000ffffUL));
-					}	
+					}
 				else if(strstr (varr[0], "tsign_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_TSIGN,(short)(web_param_input&0x0000ffffUL));
-					}
+					} */	
 					
 				else if(strstr (varr[0], "tmax_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_TMAX,(short)(web_param_input&0x0000ffffUL));
 					}
-
+			  /*
 				else if(strstr (varr[0], "tzas_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_TZAS,(short)(web_param_input&0x0000ffffUL));
-					}
+					} */
 
 				else if(strstr (varr[0], "apv1_on_"))
 					{
@@ -450,13 +461,13 @@ while (dat);
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_APV_ON2_TIME,(short)(web_param_input&0x0000ffffUL));
 					} 
-
+				
 				else if(strstr (varr[0], "u0b_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_U0B,(short)(web_param_input&0x0000ffffUL));
 					}
-					
+				/*	
 				else if(strstr (varr[0], "tbat_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
@@ -468,7 +479,7 @@ while (dat);
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_IKB,(short)(web_param_input&0x0000ffffUL));
 					}
-
+					  */
 				else if(strstr (varr[0], "year_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
@@ -498,7 +509,7 @@ while (dat);
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					LPC_RTC->MIN=(short)(web_param_input&0x0000ffffUL);
 					}
-					
+				/*	
 				else if(strstr (varr[0], "secund_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
@@ -578,7 +589,7 @@ while (dat);
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					if((short)(web_param_input&0x000000ffUL))lc640_write_int(EE_SK_ZVUK_EN3,0);
 					else lc640_write_int(EE_SK_ZVUK_EN3,1);
-					}	
+					}*/	
 				else if(strstr (varr[0], "sntp_gmt_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
@@ -612,13 +623,13 @@ while (dat);
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_NUMIST,(short)(web_param_input&0x000000ffUL));
-					}
+					} /*
 				else if(strstr (varr[0], "numphase_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					if((short)(web_param_input&0x000000ffUL))lc640_write_int(EE_NUMPHASE,3);
 					else lc640_write_int(EE_NUMPHASE,1);
-					}
+					} */
 				else if(strstr (varr[0], "numsk_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
@@ -628,7 +639,7 @@ while (dat);
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_NUMDT,(short)web_param_input);
-					}
+					}  /*
 				else if(strstr (varr[0], "nummakb_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
@@ -802,6 +813,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 						else if(AUSW_MAIN==4810)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/48-10А"));
 						else if(AUSW_MAIN==6005)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/60-5А"));
 						else if(AUSW_MAIN==4805)	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/48-5А"));
+						else 						len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("модель неопределена"));
 						#endif //(UKU_VERSION==300)				{
 
 						#if(UKU_VERSION==900)		
@@ -835,6 +847,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 							if(NUMIST==1)			len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/48-20А-1БПС"));
 							else if(NUMIST==2)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/48-20А-2БПС"));
 							}
+						else 						len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("модель неопределена"));
 						#endif //(UKU_VERSION==900)				{
 					break;
 			        case '2':
@@ -1342,7 +1355,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		/* меню установок */
       	switch (env[1]) {
         	case 'n':
-          		len = sprintf((char *)buf,(const char *)&env[3],6);
+          		len = sprintf((char *)buf,(const char *)&env[3],33);
           		break;
         	case '0':
           		switch (env[2]) {
@@ -1362,13 +1375,13 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		          		len = sprintf((char *)buf,(const char *)&env[4],(AV_OFF_AVT==1)?1:0," ");
 		          		break;
 		     		case '6':
-		         		len = sprintf((char *)buf,(const char *)&env[4],(MNEMO_ON==mnON)?1:0," ");
+		         		len = sprintf((char *)buf,(const char *)&env[4],MNEMO_TIME,(MNEMO_ON==mnON)?"on":"off");
 		          		break;
 		     		case '7':
 		         		len = sprintf((char *)buf,(const char *)&env[4],UMN," ");
 		          		break;
 		     		case '8':
-		         		len = sprintf((char *)buf,(const char *)&env[4],UMN," ");
+		         		len = sprintf((char *)buf,(const char *)&env[4],UMAXN," ");
 		          		break;		     		
 					case '9':
 		         		len = sprintf((char *)buf,(const char *)&env[4],UMN," ");
@@ -1377,7 +1390,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 				break;
         	case '1':
           		switch (env[2]) {
-/*					case '0':
+					case '0':
 		         		len = sprintf((char *)buf,(const char *)&env[4],IMAX," ");
 		          		break;																				   
 					case '1':
@@ -1386,9 +1399,9 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		     		case '2':
 		          		len = sprintf((char *)buf,(const char *)&env[4],UMAX," ");
 		          		break;
-		     		case '3':
+/*		     		case '3':
 		          		len = sprintf((char *)buf,(const char *)&env[4],UB20-DU," ");
-		          		break;
+		          		break; */
 		     		case '4':
 		          		len = sprintf((char *)buf,(const char *)&env[4],UB20," ");
 		          		break;
@@ -1398,7 +1411,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		     		case '6':
 		         		len = sprintf((char *)buf,(const char *)&env[4],USIGN," ");
 		          		break;
-		     		case '7':
+/*		     		case '7':
 		         		len = sprintf((char *)buf,(const char *)&env[4],IZMAX," ");
 		          		break;
 		     		case '8':
@@ -1416,36 +1429,36 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		          		break;																				   
 					case '1':
 		          		len = sprintf((char *)buf,(const char *)&env[4],VZ_HR," ");
-		          		break;
+		          		break; 
 		     		case '2':
 		          		len = sprintf((char *)buf,(const char *)&env[4],TSIGN," ");
-		          		break;
+		          		break;	*/
 		     		case '3':
 		          		len = sprintf((char *)buf,(const char *)&env[4],TMAX," ");
 		          		break;
-		     		case '4':
+		     	/*	case '4':
 		          		len = sprintf((char *)buf,(const char *)&env[4],TZAS," ");
-		          		break;
+		          		break; */
 		     		case '5':
-		          		len = sprintf((char *)buf,(const char *)&env[4],(APV_ON1==apvON)?1:0," ");
+		          		len = sprintf((char *)buf,(const char *)&env[4],(apv_on1==apvON)?1:0," ");
 		          		break;
 		     		case '6':
-		         		len = sprintf((char *)buf,(const char *)&env[4],(APV_ON2==apvON)?1:0," ");
+		         		len = sprintf((char *)buf,(const char *)&env[4],(apv_on2==apvON)?1:0," ");
 		          		break;
 		     		case '7':
-		         		len = sprintf((char *)buf,(const char *)&env[4],APV_ON2_TIME," ");
+		         		len = sprintf((char *)buf,(const char *)&env[4],apv_on2_time," ");
 		          		break;
 		     		case '8':
 		         		len = sprintf((char *)buf,(const char *)&env[4],U0B," ");
 		          		break;		     		
-					case '9':
+				/*	case '9':
 		         		len = sprintf((char *)buf,(const char *)&env[4],TBAT," ");
 		          		break;	*/																			   
 				}
 				break;
        		case '3':
           		switch (env[2]) {
-/*					case '0':
+					case '0':
 		         		len = sprintf((char *)buf,(const char *)&env[4],IKB," ");
 		          		break;																				   
 					case '1':
@@ -1464,9 +1477,9 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		          		len = sprintf((char *)buf,(const char *)&env[4],LPC_RTC->MIN," ");
 		          		break;
 		     		case '6':
-		         		len = sprintf((char *)buf,(const char *)&env[4],LPC_RTC->SEC," ");
+		         		len = sprintf((char *)buf,(const char *)&env[4],SNTP_ENABLE," ");
 		          		break;
-		     		case '7':
+/*		     		case '7':
 						if(AVZ==AVZ_1)temp=1;
 						else if(AVZ==AVZ_2)temp=2;
 						else if(AVZ==AVZ_3)temp=3; 
@@ -1582,7 +1595,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		         		if(!SK_ZVUK_EN[3])temp=1;
 						else temp=0;
 						len = sprintf((char *)buf,(const char *)&env[4],temp," ");
-		          		break;
+		          		break;*/
 		     		case '8':
 						len = sprintf((char *)buf,(const char *)&env[4],(signed)SNTP_GMT," ");
 		          		break;		     		
@@ -1590,17 +1603,17 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		         		if(lc640_read_int(EE_SNTP_WEB_ENABLE)==1)temp=0;
 						else temp=1;
 						len = sprintf((char *)buf,(const char *)&env[4],temp," ");
-		          		break;	*/																			   
+		          		break;																				   
 				}
 				break;
 
        		case '6':
           		switch (env[2]) {
 					case '0':
-		         	/*	len = sprintf((char *)buf,(const char *)&env[4],http_ip_output(	(char)lc640_read_int(EE_SNTP_IP1),
+		         		len = sprintf((char *)buf,(const char *)&env[4],http_ip_output(	(char)lc640_read_int(EE_SNTP_IP1),
 																						(char)lc640_read_int(EE_SNTP_IP2),
 																						(char)lc640_read_int(EE_SNTP_IP3),
-																						(char)lc640_read_int(EE_SNTP_IP4))); */
+																						(char)lc640_read_int(EE_SNTP_IP4))); 
 						break;																				   
 					case '1':
 						len = sprintf((char *)buf,(const char *)&env[4],NUMIST," ");
@@ -1611,10 +1624,10 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 						len = sprintf((char *)buf,(const char *)&env[4],temp," "); */
 		          		break;
 		     		case '3':
-					//	len = sprintf((char *)buf,(const char *)&env[4],NUMSK," ");
+						len = sprintf((char *)buf,(const char *)&env[4],NUMSK," ");
 		          		break;
 					case '4':
-					//	len = sprintf((char *)buf,(const char *)&env[4],NUMDT," ");
+						len = sprintf((char *)buf,(const char *)&env[4],NUMDT," ");
 						break;																				   
 					case '5':
 					//	len = sprintf((char *)buf,(const char *)&env[4],NUMMAKB," ");

@@ -45,6 +45,7 @@ IKB=lc640_read_int(EE_IKB);
 KVZ=lc640_read_int(EE_KVZ);
 IMAX=lc640_read_int(EE_IMAX);
 KIMAX=lc640_read_int(EE_KIMAX);
+IMIN=lc640_read_int(EE_IMIN);
 APV_ON=lc640_read_int(EE_APV_ON);
 IZMAX=lc640_read_int(EE_IZMAX);
 U0B=lc640_read_int(EE_U0B);	 

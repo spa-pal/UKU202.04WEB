@@ -102,6 +102,7 @@ signed short IKB;
 signed short KVZ;
 signed short IMAX;
 signed short KIMAX;
+signed short IMIN;
 signed short APV_ON;
 signed short IZMAX;
 signed short U0B;
@@ -2512,7 +2513,7 @@ const char sm320[]	={" Структура          "};	*/
 	ptrs[20]=	" Iбк.=       jА     ";
 	ptrs[21]=	" Iз.мах.=    JА     ";
 	ptrs[22]=	" Imax=       ]A     ";
-	ptrs[23]=	" Kimax=      {      ";
+	ptrs[23]=	" Imin=       {А     ";
 	ptrs[24]=	" Kвыр.зар.=    [    ";
 	ptrs[25]=	" Tз.вкл.а.с. !с     ";
 	ptrs[26]=	" tmax=       $°C    ";
@@ -2538,7 +2539,8 @@ const char sm320[]	={" Структура          "};	*/
 	     else sub_bgnd("ручн.",')',0);
 	     if(MNEMO_ON==mnON)
 	     	{
-	     	sub_bgnd("через yс.",'y',-8);
+			if(MNEMO_TIME>=100)sub_bgnd("через  yс",'y',-8);
+	     	else sub_bgnd("через yс.",'y',-8);
 	     	int2lcd(MNEMO_TIME,'y',0);
 	     	}
 	     else sub_bgnd("выкл.",'y',-4);
@@ -2553,7 +2555,7 @@ const char sm320[]	={" Структура          "};	*/
 	int2lcd(IKB,'j',2);
 	int2lcd(KVZ,'[',3);
 	int2lcd(IMAX,']',1);
-	int2lcd(KIMAX,'{',1);
+	int2lcd(IMIN,'{',1);
 	int2lcd(IZMAX,'J',1); 
 	int2lcd(TZAS,'!',0);
 	int2lcd(TBAT,'q',0);
@@ -5192,9 +5194,9 @@ else if(ind==iSet)
 	     	if(MNEMO_ON==mnON)lc640_write_int(EE_MNEMO_ON,mnOFF);
 	     	else lc640_write_int(EE_MNEMO_ON,mnON);
 	     	}*/
-	     if(((MNEMO_TIME<5)||(MNEMO_TIME>60))&&(MNEMO_ON!=mnOFF))lc640_write_int(EE_MNEMO_ON,mnOFF);	
-	     if(((MNEMO_TIME>=5)&&(MNEMO_TIME<=60))&&(MNEMO_ON!=mnON))lc640_write_int(EE_MNEMO_ON,mnON);
-	     gran(&MNEMO_TIME,4,61);
+	     if(((MNEMO_TIME<5)||(MNEMO_TIME>300))&&(MNEMO_ON!=mnOFF))lc640_write_int(EE_MNEMO_ON,mnOFF);	
+	     if(((MNEMO_TIME>=5)&&(MNEMO_TIME<=300))&&(MNEMO_ON!=mnON))lc640_write_int(EE_MNEMO_ON,mnON);
+	     gran(&MNEMO_TIME,4,301);
 	     lc640_write_int(EE_MNEMO_TIME,MNEMO_TIME);
 	     speed=1;
 	     }
@@ -5357,8 +5359,17 @@ else if(ind==iSet)
 	     lc640_write_int(EE_IMAX,IMAX);
 	     speed=1;
 	     }		
-	     
 	else if(sub_ind==23)
+	     {
+	     if(but==butR)IMIN++;
+	     else if(but==butR_)IMIN+=10;
+	     else if(but==butL)IMIN--;
+	     else if(but==butL_)IMIN-=10;
+	     gran(&IMIN,1,IMAX);
+	     lc640_write_int(EE_IMIN,IMIN);
+	     speed=1;
+	     }	     
+/*	else if(sub_ind==23)
 	     {
 	     if(but==butR)KIMAX++;
 	     else if(but==butR_)KIMAX+=10;
@@ -5367,7 +5378,7 @@ else if(ind==iSet)
 	     gran(&KIMAX,5,10);
 	     lc640_write_int(EE_KIMAX,KIMAX);
 	     speed=1;
-	     }
+	     }*/
 	
 	else if(sub_ind==24)
 	     {

@@ -226,7 +226,7 @@ char* aaa_="abc";
 	{ MIB_INTEGER,  			12, {OID_ENTERPRISE, OID_DEVICE, SYSPARAMS, SYSPARAMS_IBK, 0},						MIB_INT(snmp_control_current),snmp_control_current_write},		//номер первого бпса 
 	{ MIB_INTEGER,  			12, {OID_ENTERPRISE, OID_DEVICE, SYSPARAMS, SYSPARAMS_IZMAX, 0},						MIB_INT(snmp_max_charge_current),	snmp_max_charge_current_write},		//номер первого бпса 
 	{ MIB_INTEGER,  			12, {OID_ENTERPRISE, OID_DEVICE, SYSPARAMS, SYSPARAMS_IMAX, 0},						MIB_INT(snmp_max_current),	snmp_max_current_write},		//номер первого бпса 
-	{ MIB_INTEGER,  			12, {OID_ENTERPRISE, OID_DEVICE, SYSPARAMS, SYSPARAMS_KIMAX, 0},						MIB_INT(snmp_max_current_koef),	snmp_max_current_koef_write},		//номер первого бпса 
+	{ MIB_INTEGER,  			12, {OID_ENTERPRISE, OID_DEVICE, SYSPARAMS, SYSPARAMS_KIMAX, 0},						MIB_INT(snmp_min_current),	snmp_min_current_write},		//номер первого бпса 
 	{ MIB_INTEGER,  			12, {OID_ENTERPRISE, OID_DEVICE, SYSPARAMS, SYSPARAMS_KVZ, 0},						MIB_INT(snmp_up_charge_koef),	snmp_up_charge_koef_write},		//номер первого бпса 
 	{ MIB_INTEGER,  			12, {OID_ENTERPRISE, OID_DEVICE, SYSPARAMS, SYSPARAMS_TZAS, 0},						MIB_INT(snmp_powerup_psu_timeout),	snmp_powerup_psu_timeout_write},		//номер первого бпса 
 	{ MIB_INTEGER,  			12, {OID_ENTERPRISE, OID_DEVICE, SYSPARAMS, SYSPARAMS_TMAX, 0},						MIB_INT(snmp_max_temperature),	snmp_max_temperature_write},		//номер первого бпса 

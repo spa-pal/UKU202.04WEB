@@ -67,6 +67,7 @@ extern signed short snmp_max_current_koef;
 extern signed short snmp_up_charge_koef;
 extern signed short snmp_powerup_psu_timeout;
 extern signed short snmp_max_temperature;
+extern signed short snmp_min_current;
   
 //-----------------------------------------------
 void snmp_data (void);
@@ -87,7 +88,7 @@ void snmp_u_withouth_bat_write (int mode);
 void snmp_control_current_write (int mode);
 void snmp_max_charge_current_write (int mode);
 void snmp_max_current_write (int mode);
-void snmp_max_current_koef_write (int mode);
+void snmp_min_current_write (int mode);
 void snmp_up_charge_koef_write (int mode);
 void snmp_powerup_psu_timeout_write (int mode);
 void snmp_max_temperature_write (int mode);
