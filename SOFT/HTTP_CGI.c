@@ -595,11 +595,6 @@ while (dat);
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_SNTP_GMT,(short)web_param_input);
 					} 
-				else if(strstr (varr[0], "sntp_en_"))
-					{
-					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
-					lc640_write_int(EE_SNTP_ENABLE,(short)web_param_input);
-					} 
 				else if(strstr (varr[0], "sntp_exe_"))
 					{
 					time_sinc_hndl_req_cnt=5;
@@ -1482,11 +1477,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		          		len = sprintf((char *)buf,(const char *)&env[4],LPC_RTC->MIN," ");
 		          		break;
 		     		case '6':
-							if(SNTP_ENABLE==0)		len = sprintf((char *)buf,(const char *)&env[4],0,pal_cyr_coder("Выключено"));
-							else if(SNTP_ENABLE==1)	len = sprintf((char *)buf,(const char *)&env[4],0,pal_cyr_coder("Период 1 час"));
-							else if(SNTP_ENABLE==2)	len = sprintf((char *)buf,(const char *)&env[4],0,pal_cyr_coder("Период 1 сутки"));
-							else if(SNTP_ENABLE==3)	len = sprintf((char *)buf,(const char *)&env[4],0,pal_cyr_coder("Период 1 неделя"));
-		         			//len = sprintf((char *)buf,(const char *)&env[4],SNTP_ENABLE," ");
+		         		len = sprintf((char *)buf,(const char *)&env[4],SNTP_ENABLE," ");
 		          		break;
 /*		     		case '7':
 						if(AVZ==AVZ_1)temp=1;
