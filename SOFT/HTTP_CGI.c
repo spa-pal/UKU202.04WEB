@@ -1477,7 +1477,11 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		          		len = sprintf((char *)buf,(const char *)&env[4],LPC_RTC->MIN," ");
 		          		break;
 		     		case '6':
-		         		len = sprintf((char *)buf,(const char *)&env[4],SNTP_ENABLE," ");
+						if		(SNTP_ENABLE==0)	len = sprintf((char *)buf,(const char *)&env[4],SNTP_ENABLE,pal_cyr_coder("Выключено"));
+						else if	(SNTP_ENABLE==1)	len = sprintf((char *)buf,(const char *)&env[4],SNTP_ENABLE,pal_cyr_coder("Период 1 час"));
+						else if	(SNTP_ENABLE==2)	len = sprintf((char *)buf,(const char *)&env[4],SNTP_ENABLE,pal_cyr_coder("Период 1 сутки"));
+						else if	(SNTP_ENABLE==3)	len = sprintf((char *)buf,(const char *)&env[4],SNTP_ENABLE,pal_cyr_coder("Период 1 неделя"));
+		         		else 						len = sprintf((char *)buf,(const char *)&env[4],SNTP_ENABLE,pal_cyr_coder("ВЫКЛ."));
 		          		break;
 /*		     		case '7':
 						if(AVZ==AVZ_1)temp=1;
