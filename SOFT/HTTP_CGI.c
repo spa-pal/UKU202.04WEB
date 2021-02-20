@@ -376,7 +376,7 @@ while (dat);
 					gran(&DU,50,UB20-100);
 					lc640_write_int(EE_DU,DU);
 					//lc640_write_int(EE_IMIN,(short)(web_param_input&0x0000ffffUL));
-					}
+					} */
 				else if(strstr (varr[0], "ub20_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
@@ -401,7 +401,7 @@ while (dat);
 					lc640_write_int(EE_IZMAX,(short)(web_param_input&0x0000ffffUL));
 					}
 
-				else if(strstr (varr[0], "tbatsign_"))
+			/*	else if(strstr (varr[0], "tbatsign_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_TBATSIGN,(short)(web_param_input&0x0000ffffUL));
@@ -610,6 +610,12 @@ while (dat);
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					if((short)(web_param_input&0x000000ffUL))lc640_write_int(EE_SNTP_WEB_ENABLE,0);
 					else lc640_write_int(EE_SNTP_WEB_ENABLE,1);
+					}
+				else if(strstr (varr[0], "sntp_en_"))
+					{
+					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
+					gran(&web_param_input,0,3);
+					lc640_write_int(EE_SNTP_ENABLE,web_param_input);
 					}
 				else if(strstr (varr[0], "sntp_ip_"))
 					{
@@ -1355,7 +1361,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		/* меню установок */
       	switch (env[1]) {
         	case 'n':
-          		len = sprintf((char *)buf,(const char *)&env[3],33);
+          		len = sprintf((char *)buf,(const char *)&env[3],38);
           		break;
         	case '0':
           		switch (env[2]) {
@@ -1411,10 +1417,10 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		     		case '6':
 		         		len = sprintf((char *)buf,(const char *)&env[4],USIGN," ");
 		          		break;
-/*		     		case '7':
+		     		case '7':
 		         		len = sprintf((char *)buf,(const char *)&env[4],IZMAX," ");
 		          		break;
-		     		case '8':
+/*		     		case '8':
 		         		len = sprintf((char *)buf,(const char *)&env[4],TBATSIGN," ");
 		          		break;		     		
 					case '9':
