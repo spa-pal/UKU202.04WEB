@@ -23,6 +23,7 @@
 #include "full_can.h"
 #include "http_data.h"
 #include "sntp.h"
+#include "curr_version.h"
 
 extern U8 own_hw_adr[];
 extern U8  snmp_Community[];
@@ -361,6 +362,8 @@ short AD_last;
 char bwd_stop;
 char bRESET=0;
 char bRESET_RESET=0;
+
+U8 socket_tcp;
 
 //-----------------------------------------------
 signed short abs_pal(signed short in)
@@ -1375,7 +1378,7 @@ else if(ind==iMn)
      ptrs[9]=		" Спецфункции        ";
      ptrs[10]=		" Журнал событий     ";
 	ptrs[11]=		" Батарейный журнал  ";
-     ptrs[12]=		" Паспорт            ";
+     ptrs[12]=		" Версия ПО          ";
      ptrs[13]=		" Установки          ";
      ptrs[14]=		" Сброс аварий       ";
      ptrs[15]=		sm_exit;
@@ -1521,8 +1524,9 @@ int2lcdyx(index_set,0,1,0);*/
 	//int2lcdyx(MY_IP[3],0,14,0);
 
 //	int2lcdyx(plazma,1,2,0);
-//	long2lcdhyx(dhcp_tout,2,6,0);
-	     	//int2lcdyx(adc_buff_[4],0,9,0);
+		int2lcdyx(udp_callback_cnt,0,2,0);
+		int2lcdyx(time_sinc_hndl_main_cnt,0,9,0);
+		int2lcdyx(time_sinc_hndl_req_cnt,0,19,0);
     	} 
      
 
@@ -3906,6 +3910,19 @@ else if(ind==iPdp1)
              ,"  предыдущие данные ");	
      }  
 //int2lcdyx(ptr_ind,0,0,0);
+else if(ind==iFWabout)
+	{
+
+	bgnd_par(	" Версия             ",
+				" Сборка  0000.00.00 ",
+				"                    ",
+				"                    ");
+	int2lcdyx(BUILD_YEAR,1,12,0);
+	int2lcdyx(BUILD_MONTH,1,15,0);
+	int2lcdyx(BUILD_DAY,1,18,0);
+	
+	sprintf(&lcd_buffer[9],"%d.%d.%d",HARDVARE_VERSION,SOFT_VERSION,BUILD);
+	}
 
 if((bFL2)&&(fl_simv_len))
 	{
@@ -4250,13 +4267,19 @@ else if(ind==iMn)
 		}	
 
     	else if(sub_ind==9)
-		{
+			{
+			if(but==butE)
+		     	{
+		     	tree_up(iFWabout,0,0,0);
+		     	}
+			}
+/*		{
 		if(but==butE)
 		     {
 			tree_up(iAusw,0,0,0);
 		     ret(1000);
 			}
-		}	
+		}*/	
 
      else if(sub_ind==10)
 		{
@@ -8333,7 +8356,29 @@ else if(ind==iJ_bat_wrk)
 		tree_down(0,0);
 		ret_ind(0,0,0);
 		}	
-	}			   
+	}
+else if(ind==iFWabout)
+	{
+
+	bgnd_par(	" Версия             ",
+				" Сборка  0000.00.00 ",
+				"                    ",
+				"                    ");
+	int2lcdyx(BUILD_YEAR,1,12,0);
+	int2lcdyx(BUILD_MONTH,1,15,0);
+	int2lcdyx(BUILD_DAY,1,18,0);
+	
+	sprintf(&lcd_buffer[9],"%d.%d.%d",HARDVARE_VERSION,SOFT_VERSION,BUILD);
+	}
+else if(ind==iFWabout)
+	{
+	ret(1000);
+	if(but==butE)
+	     {
+	     tree_down(0,0);
+	     ret(0);
+	     }
+	}				   
 but_an_end:
 n_but=0;
 #endif
@@ -8541,6 +8586,21 @@ bRESET_RESET=0;
 //event2snmp(2);
 
 reload_hndl();
+
+/*
+socket_tcp = tcp_get_socket (TCP_TYPE_SERVER, 0, 10, tcp_callback);
+if (socket_tcp != 0) 
+	{
+    tcp_listen (socket_tcp, 502);
+  	}
+*/
+
+socket_udp = udp_get_socket (0, UDP_OPT_SEND_CS | UDP_OPT_CHK_CS, udp_callback);
+if (socket_udp != 0) 
+	{
+    udp_open (socket_udp, PORT_NUM);
+  	}
+
 adc_init();
 
 #ifdef LAN_OFF

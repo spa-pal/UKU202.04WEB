@@ -119,7 +119,7 @@
 #define BAUD_RATE0 9600UL
 #define BAUD_RATE1 9600UL
 
-#define HARDVARE_VERSION	 5
+//#define HARDVARE_VERSION	 5
 
 #define AVAR_UNET_ON 	5
 #define AV_UMAX_ON 		100
@@ -198,7 +198,8 @@ typedef enum {iMn,iSrv_sl,iNet,iSet,iBat,iSrc,iS2,iSet_prl,iK_prl,iDnd,iK,
 	iPrl_bat_in_out,iPdp1,iJAv_sel,iJAv_net_sel,iJAv_net,iJAv_src1,
 	iJAv_src2,iJAv_bat,iJAv_bat_sel,iAusw,iAusw_prl,iAusw_set,iK_t_out,
 	iJ_bat_ke_sel,iJ_bat_ke,iJ_bat_vz_sel,iJ_bat_vz,iJ_bat_wrk_sel,iJ_bat_wrk,
-	iExt_set,iExt_dt,iExt_sk,iAvz,iJAv_src1_sel,iJAv_src2_sel,iLog,iLog_,iLan_set,iLan,iSM}ind_enum;
+	iExt_set,iExt_dt,iExt_sk,iAvz,iJAv_src1_sel,iJAv_src2_sel,iLog,iLog_,iLan_set,iLan,iSM,
+	iFWabout}ind_enum;
 
 
 typedef struct  
