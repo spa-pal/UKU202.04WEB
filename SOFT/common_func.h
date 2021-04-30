@@ -36,4 +36,7 @@ void ip2lcd(	short in1,
 			short in4,
 			char xy,
 			char flash_pos);
+void serial2lcd(unsigned long in,
+			char xy,
+			char flash_pos);
 

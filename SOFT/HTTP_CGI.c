@@ -256,7 +256,7 @@ while (dat);
 				{
 				
 				web_plazma[4]=22;
-				if(strstr (varr[0], "serno"))
+				if(strstr (varr[0], "serno_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_AUSW_MAIN_NUMBER,(short)(web_param_input&0x0000ffffUL));

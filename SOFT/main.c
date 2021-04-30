@@ -706,7 +706,7 @@ void ind_hndl(void)
 {
 #ifndef MINISIZE
 //const char* ptr;
-const char* ptrs[30];
+const char* ptrs[35];
 const char* sub_ptrs[30];
 static char sub_cnt,sub_cnt1;
 char i,sub_cnt_max;
@@ -1524,9 +1524,9 @@ int2lcdyx(index_set,0,1,0);*/
 	//int2lcdyx(MY_IP[3],0,14,0);
 
 //	int2lcdyx(plazma,1,2,0);
-		int2lcdyx(udp_callback_cnt,0,2,0);
-		int2lcdyx(time_sinc_hndl_main_cnt,0,9,0);
-		int2lcdyx(time_sinc_hndl_req_cnt,0,19,0);
+		//int2lcdyx(udp_callback_cnt,0,2,0);
+		//int2lcdyx(time_sinc_hndl_main_cnt,0,9,0);
+		//int2lcdyx(time_sinc_hndl_req_cnt,0,19,0);
     	} 
      
 
@@ -2523,9 +2523,10 @@ const char sm320[]	={" Структура          "};	*/
 	ptrs[26]=	" tmax=       $°C    ";
 	ptrs[27]=	" Ethernet           ";
 	ptrs[28]=	" Внешние датчики    ";
-	ptrs[29]=	sm_exit; 
-	ptrs[30]=	" Калибровки         "; 
-	ptrs[31]=	" Тест               ";        
+	ptrs[29]=   " Серийный N        w";
+	ptrs[30]=	sm_exit; 
+	ptrs[31]=	" Калибровки         "; 
+	ptrs[32]=	" Тест               ";        
 	
 	if((sub_ind-index_set)>2)index_set=sub_ind-2;
 	else if(sub_ind<index_set)index_set=sub_ind;
@@ -2564,6 +2565,7 @@ const char sm320[]	={" Структура          "};	*/
 	int2lcd(TZAS,'!',0);
 	int2lcd(TBAT,'q',0);
 	int2lcd(UMAXN,'F',0); 
+	serial2lcd(AUSW_MAIN_NUMBER,'w',sub_ind1);
 	
 	     
 	} 
@@ -4102,8 +4104,8 @@ else if(ind==iMn)
 		}	
 	else if(but==butL)
 		{
-		//ind=iMn;
-		//sub_ind=0;
+		ind=iMn;
+		sub_ind=0;
 		//vz_mem_hndl(0);
 		}
 	else if(but==butR)
@@ -5145,25 +5147,27 @@ else if(ind==iSet)
 	if(but==butD)
 		{
 		sub_ind++;
+		sub_ind1=0;
 		if(sub_ind==2)index_set=1;
 		if(sub_ind==3)sub_ind=4;
 		if(sub_ind==8)index_set=7;
 		if(sub_ind==9)sub_ind=10;
 		if(sub_ind==11)index_set=10;
 		if(sub_ind==12)sub_ind=13;
-		gran_char(&sub_ind,0,31);
+		gran_char(&sub_ind,0,32);
 		}
 	else if(but==butU)
 		{
 		sub_ind--;
+		sub_ind1=0;
 		if(sub_ind==3)sub_ind=2;
 		if(sub_ind==9)sub_ind=8;
 		if(sub_ind==12)sub_ind=11;
-		gran_char(&sub_ind,0,31);
+		gran_char(&sub_ind,0,32);
 		}
 	else if(but==butD_)
 		{
-		sub_ind=29;
+		sub_ind=30;
 		}
 		
 	else if(sub_ind==0)
@@ -5448,8 +5452,62 @@ else if(ind==iSet)
 		     tree_up(iExt_set,0,0,0);
 		     ret(1000);
 		     }
-		}		
-	else if(sub_ind==29)
+		}
+
+ 	else if(sub_ind==29)
+		{
+		long t6,t7,t1,t2,t3;
+		if(sub_ind1==1)t6=1L;
+		if(sub_ind1==2)t6=10L;
+		if(sub_ind1==3)t6=100L;
+		if(sub_ind1==4)t6=1000L;
+		if(sub_ind1==5)t6=10000L;
+		if(sub_ind1==6)t6=100000L;
+		t7=t6*10L;
+		if(but==butE_)
+			{
+			if(sub_ind1==0)sub_ind1=6;
+			else 
+				{
+				sub_ind1--;
+				gran_ring_char(&sub_ind1,1,6);
+				}
+			speed=0;
+			}
+		
+		t1=AUSW_MAIN_NUMBER%t7;
+		t1/=t6;
+		t2=t1*t6;
+
+		if(sub_ind1)
+			{
+		    if((but==butR)||(but==butR_))
+				{
+				t1++;
+				speed=1;
+				}
+		    else if((but==butL)||(but==butL_))
+				{
+				t1--;
+				speed=1;
+				}
+			gran_ring_long(&t1, 0L, 9L);	    
+	
+			t3=t1*t6;
+	
+			AUSW_MAIN_NUMBER-=t2;
+			AUSW_MAIN_NUMBER+=t3;
+			//else if(but==butEL_)AUSW_MAIN_NUMBER=15000;
+			//if(AUSW_MAIN_NUMBER<13000)AUSW_MAIN_NUMBER=200000;
+			//if(AUSW_MAIN_NUMBER>200000)AUSW_MAIN_NUMBER=13000;
+			if((but==butR)||(but==butR_)||(but==butL)||(but==butL_))gran_ring_long(&AUSW_MAIN_NUMBER, 1L, 999999L);
+		    lc640_write_int(EE_AUSW_MAIN_NUMBER,(short)(AUSW_MAIN_NUMBER&0x0000ffffUL));
+			lc640_write_int(EE_AUSW_MAIN_NUMBER+2,(short)((AUSW_MAIN_NUMBER&0xffff0000UL)>>16UL));
+		    speed=1;
+			}
+	    }   
+						
+	else if(sub_ind==30)
 		{
 		if(but==butE)
 		     {
@@ -5457,7 +5515,7 @@ else if(ind==iSet)
 		     ret(0);
 		     }
 		}		
-	else if(sub_ind==30)
+	else if(sub_ind==31)
 		{
 		if(but==butE)
 		     {		
@@ -5466,7 +5524,7 @@ else if(ind==iSet)
 			ret(50);
 			}						
 		}			
-	else if(sub_ind==31)
+	else if(sub_ind==32)
 		{
 		if(but==butE)
 		     {
@@ -8356,19 +8414,6 @@ else if(ind==iJ_bat_wrk)
 		tree_down(0,0);
 		ret_ind(0,0,0);
 		}	
-	}
-else if(ind==iFWabout)
-	{
-
-	bgnd_par(	" Версия             ",
-				" Сборка  0000.00.00 ",
-				"                    ",
-				"                    ");
-	int2lcdyx(BUILD_YEAR,1,12,0);
-	int2lcdyx(BUILD_MONTH,1,15,0);
-	int2lcdyx(BUILD_DAY,1,18,0);
-	
-	sprintf(&lcd_buffer[9],"%d.%d.%d",HARDVARE_VERSION,SOFT_VERSION,BUILD);
 	}
 else if(ind==iFWabout)
 	{

@@ -390,6 +390,31 @@ if((bFL2)&&(flash_on))
 }
 
 //-----------------------------------------------
+void serial2lcd(unsigned long in,
+			char xy,
+			char flash_pos)
+{
+char i;
+//char n;
+
+//bin2bcd_int(in);
+//bcd2lcd_zero(des+1);
+i=find(xy);
+
+//in1=192;
+
+//in2=34;
+
+long2lcd_mmm((signed long)in,xy,0);
+
+if((flash_pos)&&(bFL2))
+	{
+	lcd_buffer[i+1-flash_pos]=95;
+	}
+
+}
+
+//-----------------------------------------------
 void ip2lcd(	short in1,
 			short in2,
 			short in3,
