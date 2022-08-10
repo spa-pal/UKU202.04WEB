@@ -2529,7 +2529,7 @@ else
 		}
 	}
 
-//if(skb_cnt==75) lc640_write_int(EE_KIBAT0,tlv_buff_[0]);
+if(skb_cnt==75) lc640_write_int(ptr_ki_bat0,adc_buff_[4]);
 if(MSG_IND2OUT_EN_RELSAM)kz_on();
 MSG_IND2OUT_EN_RELSAM=0;
 }

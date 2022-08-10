@@ -892,12 +892,15 @@ ptrs[0]="  --------   !      ";
      	         "                    ");
 
 
-		int2lcdyx(sub_ind1,0,0,0);
+		int2lcdyx(skb_cnt,0,4,0);
 
+		int2lcdyx(Kibat0,1,4,0);
 
-		int2lcdyx(adc_buff_[sub_ind1],1,4,0);
-		int2lcdyx(adc_buff_max[sub_ind1],2,4,0);
-		int2lcdyx(adc_buff_min[sub_ind1],3,4,0);
+		int2lcdyx(adc_buff_[4],2,4,0);
+
+		//int2lcdyx(adc_buff_[sub_ind1],1,4,0);
+		//int2lcdyx(adc_buff_max[sub_ind1],2,4,0);
+		//int2lcdyx(adc_buff_min[sub_ind1],3,4,0);
 
 
 
@@ -2520,7 +2523,7 @@ const char sm320[]	={" Структура          "};	*/
 	ptrs[23]=	" Imin=       {А     ";
 	ptrs[24]=	" Kвыр.зар.=    [    ";
 	ptrs[25]=	" Tз.вкл.а.с. !с     ";
-	ptrs[26]=	" tmax=       $°C    ";
+	ptrs[26]=	" tист.max. =  $°C    ";
 	ptrs[27]=	" Ethernet           ";
 	ptrs[28]=	" Внешние датчики    ";
 	ptrs[29]=   " Серийный N        w";
@@ -2567,7 +2570,8 @@ const char sm320[]	={" Структура          "};	*/
 	int2lcd(UMAXN,'F',0); 
 	serial2lcd(AUSW_MAIN_NUMBER,'w',sub_ind1);
 	
-	     
+//int2lcdyx(MAIN_IST,0,3,0);
+//int2lcdyx((short)web_param_input,0,6,0);	     
 	} 
 
 else if (ind==iDef)
@@ -4038,8 +4042,7 @@ else if(ind==iDeb)
           //a=b[--ptr_ind];
 		if(sub_ind==2)
 			{
-			adc_buff_max[sub_ind1]=0;
-			adc_buff_min[sub_ind1]=5000;
+			lc640_write_int(ptr_ki_bat0,adc_buff_[4]);
 			}
 		else if(sub_ind==3)
 			{
@@ -4114,7 +4117,7 @@ else if(ind==iMn)
 		}
 	else if(but==butR_)
 		{
-		//vz_mem_hndl(0);
+		tree_up(iSet,0,0,0);
 		}						
 	else if(sub_ind==1)
 		{
@@ -6028,6 +6031,8 @@ else if (ind==iLan_set)
 		lc640_write_int(EE_ETH_TRAP5_IP_2,255);
 		lc640_write_int(EE_ETH_TRAP5_IP_3,255);
 		lc640_write_int(EE_ETH_TRAP5_IP_4,255);
+		str_copy(place_holder,"                                                                      ");
+		for (i=0;i<70;i++)lc640_write(EE_HTTP_LOCATION+i,place_holder[i]);
 		}						
 	else if(sub_ind==0)
 	     {

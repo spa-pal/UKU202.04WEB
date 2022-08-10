@@ -173,6 +173,13 @@ for(i=0;i<3;i++)
 	snmp_web_passw[i]=lc640_read(EE_WEB_PASSWORD+(i*2));
 	snmp_web_passw[3]=0;
 	}
+
+for(i=0;i<70;i++)
+	{
+	place_holder[i]=lc640_read(EE_HTTP_LOCATION+i);
+	place_holder[69]=0;
+	}
 }
+
 
 

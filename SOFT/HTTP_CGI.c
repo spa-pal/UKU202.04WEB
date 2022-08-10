@@ -279,7 +279,7 @@ while (dat);
 				else if(strstr (varr[0], "main_bps_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
-					lc640_write_int(EE_MAIN_BPS,((short)(web_param_input&0x00000001UL))-1);
+					lc640_write_int(EE_MAIN_BPS,((short)(web_param_input&0x00000003UL))-1);
 
 					}
 				else if(strstr (varr[0], "zv_on_"))
@@ -467,14 +467,16 @@ while (dat);
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_U0B,(short)(web_param_input&0x0000ffffUL));
 					}
-				/*	
-				else if(strstr (varr[0], "tbat_"))
+					
+				else if(strstr (varr[0], "timebat_"))
 					{
-					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
-					lc640_write_int(EE_TBAT,(short)(web_param_input&0x0000ffffUL));
+					short tempSS;
+					sscanf((const char *)varr[1]+6, "%d",&web_param_input);
+					tempSS=(short)(web_param_input&0x0000ffffUL);
+					if((tempSS==0)||((tempSS>=5)&&(tempSS<=60)))lc640_write_int(EE_TBAT,tempSS);
 					}
 					
-				else if(strstr (varr[0], "ikb_"))
+			/*	else if(strstr (varr[0], "ikb_"))
 					{
 					sscanf ((const char *)varr[1]+6, "%d",&web_param_input);
 					lc640_write_int(EE_IKB,(short)(web_param_input&0x0000ffffUL));
@@ -854,13 +856,14 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 							else if(NUMIST==2)		len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("ИБЭП220/48-20А-2БПС"));
 							}
 						else 						len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("модель неопределена"));
-						#endif //(UKU_VERSION==900)				{
+						#endif //(UKU_VERSION==900)	
+						//len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder("модель неопределена"));		
 					break;
 			        case '2':
 			          	len = sprintf((char *)buf,(const char *)&env[4],AUSW_MAIN_NUMBER);
 					break;
 			        case '3':
-			          	len = sprintf((char *)buf,(const char *)&env[4],pal_cyr_coder(place_holder));
+			          	len = sprintf((char *)buf,(const char *)&env[4],/*"aglkjhhilerjhert"*/pal_cyr_coder(place_holder));
 					break;
 			        case '4':  	//количество батарей
 			          	len = sprintf((char *)buf,(const char *)&env[4],NUMBAT);
@@ -1361,7 +1364,7 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		/* меню установок */
       	switch (env[1]) {
         	case 'n':
-          		len = sprintf((char *)buf,(const char *)&env[3],38);
+          		len = sprintf((char *)buf,(const char *)&env[3],39);
           		break;
         	case '0':
           		switch (env[2]) {
@@ -1457,9 +1460,9 @@ U16 cgi_func (U8 *env, U8 *buf, U16 buflen, U32 *pcgi) {
 		     		case '8':
 		         		len = sprintf((char *)buf,(const char *)&env[4],U0B," ");
 		          		break;		     		
-				/*	case '9':
+					case '9':
 		         		len = sprintf((char *)buf,(const char *)&env[4],TBAT," ");
-		          		break;	*/																			   
+		          		break;	/**/																			   
 				}
 				break;
        		case '3':
