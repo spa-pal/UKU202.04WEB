@@ -14,6 +14,9 @@
 #define BIN__B(x) (x) & 0xf | (x)>>12 & 0xf0
 #define BIN8(v) (BIN__B(BIN__N(0x##v)))
 
+#define delay_ms(x) {long xx; xx=(unsigned long)x * 20000UL; while(xx)xx--;}
+#define delay_us(x) {long xx; xx=(unsigned long)x * 17UL; while(xx)xx--;}
+
 #define OID_ENTERPRISE 	OID0(1,3), 6, 1, 4, 1, 130, 131, 31
 #define OID_DEVICE 		10
 #define DISPLAY_DEVICE_INFO			1

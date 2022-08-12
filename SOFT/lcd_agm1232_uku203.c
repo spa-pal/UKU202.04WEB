@@ -4,6 +4,74 @@
 #include "main.h"
 
 
+char lcd_bitmap2[512];
+
+const char bit_mask_const[8]={0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
+
+//-----------------------------------------------
+void bitmap_hndl_2(void)
+{
+char row, row_;
+signed char col, col_;
+short ptr,ptr_;
+
+char i;
+short ii;
+
+bitmap_hndl();
+
+for(row=0;row<4;row++)	 //по 4 текстовым строкам
+	{
+	for(col=0;col<15;col++)	 //по 16 8-битным столбикам
+		{
+		for(row_=0;row_<8;row_++)	 //по каждому из 8 пикселей в строке
+			{
+			ptr_=((short)row*128)+((short)row_*16)+((short)col);
+	
+			lcd_bitmap2[ptr_]=0;//0x0f+row_;//row+16;
+
+		   	ptr=((short)row*122)+((short)col*8);
+
+			if((row==1)&&(col==0))
+				{
+
+				}
+			for(col_=7;col_>=0;col_--)	 //по каждому из 8 пикселей в этом столбике
+				{
+				//ptr=((short)row*128)+((short)col*8)+((short)col_);
+				//if(ptr_==384) lcd_bitmap2[ptr_]|=bit_mask_const[col_];
+				if(lcd_bitmap[ptr]&0x01) lcd_bitmap2[ptr_]|=bit_mask_const[col_];
+				lcd_bitmap[ptr++]>>=1;
+				}
+			}
+		}
+	}
+
+}
+
+//-----------------------------------------------
+void lcd_debug_start(void)
+{
+
+
+lcd_init();
+lcd_clear(); 
+}
+
+//-----------------------------------------------
+void lcd_debug_loop(void)
+{
+
+delay_ms(100);
+//strob_ms(10);
+bgnd_par("1      АВАРИЯ!     2",
+		 "3    Батарея №#    4",
+		 "5   не подключена  6",
+		 "34  Инициализация  8");
+//bitmap_hndl();
+
+lcd_out(0);
+}
 
 //-----------------------------------------------
 void lcd1_chk(void)
@@ -36,6 +104,8 @@ __nop();
 __nop();
 
 LPC_GPIO0->FIOSET|=(1<<E1);
+
+delay_us(1);
 
 chk1:
 
@@ -522,6 +592,7 @@ LPC_PINCON->PINSEL2&=~(1<<((RW-16)*2))&~(1<<(((RW-16)*2)+1));
 LPC_GPIO1->FIODIR|=(1<<D0)|(1<<D1)|(1<<D2)|(1<<D3)|(1<<D4)|(1<<D5)|(1<<D6)|(1<<D7)|(1<<RES);
 LPC_GPIO0->FIODIR|=(1<<E1)|(1<<A0)|(1<<E2)|(1<<RW);
 
+#ifdef WG12232A
 
 for(i=0;i<100;i++)
 	{
@@ -540,30 +611,29 @@ for(i=0;i<50;i++)
 	{
 	__nop();
 	}
-	
+#endif	
 
-//lcd_reset();
-//E1d=1;
-//E2d=1;
-//A0d=1;
-//RWd=1;
+#ifdef WG12232L3
+LPC_GPIO1->FIOCLR|=(1<<RES);
+delay_us(50);
+LPC_GPIO1->FIOSET|=(1<<RES);
+delay_us(50);
 
-//E1=0;
-//E2=0;
-/*IO1CLR|=(1<<E1);
-IO1CLR|=(1<<E2);
-//A0=1;
-IO1SET|=(1<<A0);
-//RW=1;
-IO1SET|=(1<<RW);
 
-lcd1_wr(_RESET_);
-lcd2_wr(_RESET_);*/
-     //LCD_PORTc=0xFF;
-     //LCD_PORT=0xFF;
-//disp_page0(); 
+lcd1_wr(0x3f);
+delay_us(150);
 
-//IO0CLR|=(1<<A0)|(1<<RW);
+
+lcd1_wr(0x3f);
+
+delay_us(50);
+
+
+lcd1_wr(0x0c);
+
+delay_us(150);
+#endif
+
 }
 
 //-----------------------------------------------
@@ -792,6 +862,7 @@ mov R4, #0B8H
 //-----------------------------------------------
 void lcd_clear(void)
 {
+#ifdef WG12232A
 char page,col/*,i*/;
 
 for(page=0;page<=Max_page;page++)
@@ -804,7 +875,25 @@ for(page=0;page<=Max_page;page++)
          	data1_wr(0x58);
 	    	data2_wr(0x7a);
      	}
-     }  
+     }
+#endif	 
+
+#ifdef WG12232L3
+char row,col,i;
+
+for(row=0;row<32;row++)
+	{
+	lcd1_wr(0x80+row);
+	lcd1_wr(0x80);
+
+	for (i=0;i<8;i++)
+		{
+		data1_wr(0x01);
+		data1_wr(0x01);
+		}
+	}
+#endif	 
+	   
 }
 
 
@@ -828,6 +917,7 @@ lcd2_wr(_DISPLAY_OFF_);
 //-----------------------------------------------
 void lcd_out(char* adr)
 {
+#ifdef WG12232A
 char* ptr0;
 char* ptr1;
 char i,n;
@@ -849,5 +939,68 @@ for(n=0;n<=3;n++)
 		ptr1++;
 	    	}
 	}
+#endif
+
+#ifdef WG12232L3
+static char mem;
+short lcd_ptr;
+
+char d1,d2;
+char row,col,i;
+//strob_us(1);
+
+bitmap_hndl_2();
+
+if(mem)
+	{
+	mem=0;
+	d1=0x55;
+	d2=0xff;
+	}
+else 
+	{
+	mem=1;
+	d2=0x55;
+	d1=0xff;
+	} 
+
+lcd_ptr=0;
+
+for(row=0;row<32;row++)
+	{
+	//strob_us(10);
+	lcd1_wr(0x80+row);
+	//strob_us(10);
+	lcd1_wr(0x80);
+   	//strob_us(10);
+/*for(page=0;page<=Max_page;page++)
+
+	{
+	lcd_set_page(page);
+	lcd_set_col(0);
+	for(col=0;col<=Max_Col;col++)
+         	{
+         	data1_wr(0x01);
+	    	//data2_wr(0x00);
+     	}
+     }  */
+
+	/*for (i=0;i<8;i++)
+		{
+		if(i==0) strob_us(10);
+		data1_wr(d1);
+		if(i==0) strob_us(10);
+		data1_wr(d2);
+		} */
+
+	for (i=0;i<16;i++)
+		{
+		//if(i==0) strob_us(1);
+		data1_wr(lcd_bitmap2[lcd_ptr++]);
+		//data1_wr(0x01);
+		}
+
+	}
+#endif
 }
 

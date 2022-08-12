@@ -8564,6 +8564,13 @@ SysTick->CTRL = 0x05;
 init_timer( 0,SystemFrequency/1000/4 - 1 ); // 1ms	
 enable_timer( 0 );
 
+/*lcd_debug_start();
+
+while(1)
+{
+lcd_debug_loop();
+} */
+
 
 LPC_GPIO1->FIODIR  |= 1<<27;                
 	;
@@ -8574,7 +8581,7 @@ LPC_GPIO0->FIOSET  |= 1<<27;
 SET_REG(LPC_GPIO0->FIODIR,0,10,1); //вход частоты 
 
 lcd_init();  
-lcd_on();
+//lcd_on();
 lcd_clear();
 		
 LPC_GPIO4->FIODIR |= (1<<29);           /* LEDs on PORT2 defined as Output    */
