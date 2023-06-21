@@ -171,7 +171,7 @@
 
 //-----------------------------------------------
 //Таймер
-extern char b1000Hz,b100Hz,b50Hz,b10Hz,b5Hz,b2Hz,b1Hz,b33Hz,bADC;
+extern char b1000Hz,b100Hz,b50Hz,b10Hz,b5Hz,b2Hz,b1Hz,b33Hz,bADC, bADC1;
 extern short t0cnt,t0cnt0,t0cnt1,t0cnt2,t0cnt3,t0cnt4,t0cnt5,t0cnt6,t0_cnt7,t0_cnt8,t0_cnt_adc;
 extern char bFL5,bFL2,bFL,bFL_;
 

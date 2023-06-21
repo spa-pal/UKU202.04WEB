@@ -2920,68 +2920,72 @@ void adc_drv5(void)
 int temp_S;
 char i;
 signed short temp_SS;
+if(bADC1)bADC1=0;
+else bADC1=1;
 
-adc_self_ch_disp[0]=abs_pal(adc_self_ch_buff[1]-adc_self_ch_buff[0]);//adc_self_ch_buff[0]&0x0f80;
-adc_self_ch_disp[1]=abs_pal(adc_self_ch_buff[2]-adc_self_ch_buff[1]);//adc_self_ch_buff[1]&0x0f80;
-adc_self_ch_disp[2]=abs_pal(adc_self_ch_buff[2]-adc_self_ch_buff[0]);//adc_self_ch_buff[2]&0x0f80;
-
-//adc_self_ch_disp[0]=adc_self_ch_buff[0]&0x0ff0;
-//adc_self_ch_disp[1]=adc_self_ch_buff[1]&0x0ff0;
-//adc_self_ch_disp[2]=adc_self_ch_buff[2]&0x0ff0;
-
-
-if(adc_self_ch_disp[2]<300)//==adc_self_ch_disp[2])
+if(bADC1==0)
 	{
-	adc_buff[adc_ch][adc_cnt1]=adc_self_ch_buff[2];
-	} 
-else if(adc_self_ch_disp[1]<300)//==adc_self_ch_disp[2])
-	{
-	adc_buff[adc_ch][adc_cnt1]=adc_self_ch_buff[1];
-	}
-else if(adc_self_ch_disp[0]<300)//==adc_self_ch_disp[1])
-	{
-	adc_buff[adc_ch][adc_cnt1]=adc_self_ch_buff[0];
-	}
-
- 
-
-
-//adc_buff[adc_ch][adc_cnt1]=(adc_self_ch_buff[2]+adc_self_ch_buff[1])/2;
-
-if(adc_buff[adc_ch][adc_cnt1]<adc_buff_min[adc_ch])adc_buff_min[adc_ch]=adc_buff[adc_ch][adc_cnt1];
-if(adc_buff[adc_ch][adc_cnt1]>adc_buff_max[adc_ch])adc_buff_max[adc_ch]=adc_buff[adc_ch][adc_cnt1];
-
-	{
-	if((adc_cnt1&0x03)==0)
-		{
-		temp_S=0;
-		for(i=0;i<16;i++)
-			{
-			temp_S+=adc_buff[adc_ch][i];
-			} 
-         	adc_buff_[adc_ch]=temp_S>>4;
-          }
-	}
-
-if(++adc_ch>=10) 
-	{
-	adc_ch=0;
-	adc_cnt1++;
-	if(adc_cnt1>=16)adc_cnt1=0;
-	}
-		  
-
-adc_self_ch_cnt=0;
-
-SET_REG(LPC_GPIO0->FIODIR,7,5,3);
-SET_REG(LPC_GPIO0->FIOPIN,adc_ch,5,3);
+	adc_self_ch_disp[0]=abs_pal(adc_self_ch_buff[1]-adc_self_ch_buff[0]);//adc_self_ch_buff[0]&0x0f80;
+	adc_self_ch_disp[1]=abs_pal(adc_self_ch_buff[2]-adc_self_ch_buff[1]);//adc_self_ch_buff[1]&0x0f80;
+	adc_self_ch_disp[2]=abs_pal(adc_self_ch_buff[2]-adc_self_ch_buff[0]);//adc_self_ch_buff[2]&0x0f80;
 	
-if(adc_ch<=7)SET_REG(LPC_ADC->ADCR,1<<5,0,8);
-else if(adc_ch==8) SET_REG(LPC_ADC->ADCR,1<<2,0,8);
-else SET_REG(LPC_ADC->ADCR,1<<4,0,8);
+	//adc_self_ch_disp[0]=adc_self_ch_buff[0]&0x0ff0;
+	//adc_self_ch_disp[1]=adc_self_ch_buff[1]&0x0ff0;
+	//adc_self_ch_disp[2]=adc_self_ch_buff[2]&0x0ff0;
+	
+	
+	if(adc_self_ch_disp[2]<300)//==adc_self_ch_disp[2])
+		{
+		adc_buff[adc_ch][adc_cnt1]=adc_self_ch_buff[2];
+		} 
+	else if(adc_self_ch_disp[1]<300)//==adc_self_ch_disp[2])
+		{
+		adc_buff[adc_ch][adc_cnt1]=adc_self_ch_buff[1];
+		}
+	else if(adc_self_ch_disp[0]<300)//==adc_self_ch_disp[1])
+		{
+		adc_buff[adc_ch][adc_cnt1]=adc_self_ch_buff[0];
+		}
+	
+	 
+	
+	
+	//adc_buff[adc_ch][adc_cnt1]=(adc_self_ch_buff[2]+adc_self_ch_buff[1])/2;
+	
+	if(adc_buff[adc_ch][adc_cnt1]<adc_buff_min[adc_ch])adc_buff_min[adc_ch]=adc_buff[adc_ch][adc_cnt1];
+	if(adc_buff[adc_ch][adc_cnt1]>adc_buff_max[adc_ch])adc_buff_max[adc_ch]=adc_buff[adc_ch][adc_cnt1];
+	
+		{
+		if((adc_cnt1&0x03)==0)
+			{
+			temp_S=0;
+			for(i=0;i<16;i++)
+				{
+				temp_S+=adc_buff[adc_ch][i];
+				} 
+	         	adc_buff_[adc_ch]=temp_S>>4;
+	          }
+		}
+	
+	if(++adc_ch>=10) 
+		{
+		adc_ch=0;
+		adc_cnt1++;
+		if(adc_cnt1>=16)adc_cnt1=0;
+		}
+			  
+	
+	adc_self_ch_cnt=0;
+	
+	SET_REG(LPC_GPIO0->FIODIR,7,5,3);
+	SET_REG(LPC_GPIO0->FIOPIN,adc_ch,5,3);
+		
+	if(adc_ch<=7)SET_REG(LPC_ADC->ADCR,1<<5,0,8);
+	else if(adc_ch==8) SET_REG(LPC_ADC->ADCR,1<<2,0,8);
+	else SET_REG(LPC_ADC->ADCR,1<<4,0,8);
+	}
 
-
-LPC_ADC->ADCR |=  (1<<24);
+if(bADC1==1)LPC_ADC->ADCR |=  (1<<24);
 
 }
 

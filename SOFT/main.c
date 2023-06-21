@@ -37,7 +37,7 @@ extern LOCALM localm[];
 
 //-----------------------------------------------
 //Таймер
-char b1000Hz,b100Hz,b50Hz,b10Hz,b5Hz,b2Hz,b1Hz,b33Hz,bADC;
+char b1000Hz,b100Hz,b50Hz,b10Hz,b5Hz,b2Hz,b1Hz,b33Hz, bADC, bADC1;
 short t0cnt,t0cnt0,t0cnt1,t0cnt2,t0cnt3,t0cnt4,t0cnt5,t0cnt6,t0_cnt7,t0_cnt8,t0_cnt_adc;
 char bFL5,bFL2,bFL,bFL_;
 
@@ -1436,7 +1436,7 @@ else if(ind==iMn)
      int2lcdyx(adc_buff_[1],1,3,0);
      int2lcdyx(adc_buff_[2],2,3,0);
      int2lcdyx(adc_buff_[3],3,3,0);
-     int2lcdyx(adc_buff_[4],0,8,0);
+     
      int2lcdyx(adc_buff_[5],1,8,0);
      int2lcdyx(adc_buff_[6],2,8,0);
      int2lcdyx(adc_buff_[7],3,8,0);*/
@@ -1530,6 +1530,8 @@ int2lcdyx(index_set,0,1,0);*/
 		//int2lcdyx(udp_callback_cnt,0,2,0);
 		//int2lcdyx(time_sinc_hndl_main_cnt,0,9,0);
 		//int2lcdyx(time_sinc_hndl_req_cnt,0,19,0);
+
+		//int2lcdyx(adc_buff_[4],0,6,0);
     	} 
      
 

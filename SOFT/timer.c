@@ -93,7 +93,7 @@ if(++t0cnt5>=20)
      b50Hz=1;
      }
 
-if(++t0_cnt_adc>=9)
+if(++t0_cnt_adc>=4)
      {
      t0_cnt_adc=0;
      bADC=1;
