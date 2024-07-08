@@ -431,11 +431,14 @@ void uart_in_an0(void)
 
 
 
-if((UIB0[0]=='r')&&(UIB0[1]=='e')&&(UIB0[2]=='a')&&(UIB0[3]=='d')&&(UIB0[6]==crc_87(UIB0,6))&&(UIB0[7]==crc_95(UIB0,6)))
+if((UIB0[0]=='r')&&(UIB0[1]=='e')&&(UIB0[2]=='a')&&(UIB0[3]=='d')/*&&(UIB0[6]==crc_87(UIB0,6))&&(UIB0[7]==crc_95(UIB0,6))*/)
 	{
 	unsigned short ptr;
 	unsigned long data1,data2;
 	char temp_out[20];
+
+	plazma_uart_ee[0]++;
+
 	ptr=UIB0[4]+(UIB0[5]*256U);
 	data1=lc640_read_long(ptr);
 	data2=lc640_read_long(ptr+4);

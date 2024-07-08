@@ -484,6 +484,7 @@ extern short plazma_mib,plazma_mib1;
 extern short snmp_plazma;
 extern char plazma_can,plazma_can1,plazma_can2,plazma_can3,plazma_can4;
 extern char web_plazma[5];
+extern short plazma_uart_ee[8];
 
 extern char bRESET_RESET;
 //-----------------------------------------------
