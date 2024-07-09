@@ -3183,6 +3183,73 @@ lc640_write_int(EE_APV_ON1,apvOFF);
 
 
 //-----------------------------------------------
+void def_set_1(int ausw__,int umax__,int ub0__,int ub20__,int usign__,int imax__,int imin__,int uob__,int numi__,int kind__)
+{
+
+char i__;
+//NUMBAT=1;
+if(kind__==360) 		lc640_write_int(EE_KINDSRC,1);
+else if(kind__==950) 	lc640_write_int(EE_KINDSRC,2);
+else if(kind__==1000) 	lc640_write_int(EE_KINDSRC,3);
+else 					lc640_write_int(EE_KINDSRC,1);
+
+lc640_write_int(EE_NUMIST,numi__);
+lc640_write_int(EE_NUMSK,0);
+lc640_write_int(EE_NUMDT,0);
+lc640_write_int(EE_MAIN_BPS,0);
+lc640_write_int(EE_UMAX,umax__);
+lc640_write_int(EE_UB0,ub0__);
+lc640_write_int(EE_UB20,ub20__);
+lc640_write_int(EE_TMAX,80);
+//lc640_write_int(EE_C_BAT,180);
+lc640_write_int(EE_USIGN,usign__);
+
+
+lc640_write_int(EE_IKB,10);
+
+lc640_write_int(EE_IMAX,imax__);
+lc640_write_int(EE_KIMAX,imin__);
+//lc640_write_int(EE_APV_ON,0xff);
+
+lc640_write_int(EE_U0B,uob__);
+
+//*
+lc640_write_int(EE_MNEMO_ON,mnON);
+lc640_write_int(EE_MNEMO_TIME,30);	
+lc640_write_int(EE_UMN,187);
+lc640_write_int(EE_UMAXN,265);
+lc640_write_int(EE_IZMAX,20);
+lc640_write_int(EE_TZAS,3);
+lc640_write_int(EE_KVZ,1030);
+lc640_write_int(EE_APV_ON1,apvON);
+lc640_write_int(EE_APV_ON2,apvON);
+lc640_write_int(EE_APV_ON2_TIME,1);
+lc640_write_int(EE_AV_OFF_AVT,1);
+lc640_write_int(EE_ZV_ON,0);
+lc640_write_int(EE_TBAT,60);
+
+for (i__=0; i__<4; i__++)
+	{
+	lc640_write_int(ADR_SK_SIGN[i__],0);
+	lc640_write_int(ADR_SK_REL_EN[i__],1);
+	lc640_write_int(ADR_SK_ZVUK_EN[i__],1);
+	lc640_write_int(ADR_SK_LCD_EN[i__],1);
+	lc640_write_int(ADR_SK_RS_EN[i__],1);
+	}
+for (i__=0; i__<3; i__++)
+	{
+	lc640_write_int(ADR_TMAX_EXT_EN[i__],0xffff);
+	lc640_write_int(ADR_TMAX_EXT[i__],1);			
+	lc640_write_int(ADR_TMIN_EXT_EN[i__],1);
+	lc640_write_int(ADR_T_EXT_REL_EN[i__],1);
+	lc640_write_int(ADR_T_EXT_ZVUK_EN[i__],1);
+	lc640_write_int(ADR_T_EXT_LCD_EN[i__],1);
+	lc640_write_int(ADR_T_EXT_RS_EN[i__],1);
+	}
+}
+
+
+//-----------------------------------------------
 void ubat_old_drv(void)
 {        
 ubat_old_cnt++;

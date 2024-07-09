@@ -2613,7 +2613,8 @@ const char sm320[]	={" Структура          "};	*/
 	} 
 
 else if (ind==iDef)
-	{ 
+	{
+/*	 
 #if(UKU_VERSION==300)
 #ifdef _24_
 	ptrs[0]=" ИБЭП220/24-24А     ";
@@ -2647,7 +2648,25 @@ else if (ind==iDef)
 	ptrs[9]=" ИБЭП220/68-15А-1БПС";
 	ptrs[10]=sm_exit;
 #endif	
-#endif
+#endif*/
+
+	ptrs[0]=	" 60В-40А-2/2-1000.01";
+	ptrs[1]=	" 60В-20А-2/2-1000.01";
+	ptrs[2]=	" 60В-24А-2/2-950    ";
+	ptrs[3]=	" 60В-12А-2/2-950    ";
+	ptrs[4]=	" 60В-12А-2/2-360    ";
+	ptrs[5]=	" 60В-6А-2/2-360     ";
+	ptrs[6]=	" 48В-40А-2/2-1000.01";
+	ptrs[7]=	" 48В-20А-2/2-1000.01";
+	ptrs[8]=	" 48В-24А-2/2-950    ";
+	ptrs[9]=	" 48В-12А-2/2-950    ";
+	ptrs[10]=	" 48В-12А-2/2-360    ";
+	ptrs[11]=	" 48В-6А-2/2-360     ";
+	ptrs[12]=	" 24В-50А-2/2-1000.01";
+	ptrs[13]=	" 24В-25А-2/2-1000.01";
+	ptrs[14]=	" 24В-24А-2/2-360    ";
+	ptrs[15]=	" 24В-12А-2/2-360    ";
+	ptrs[16]=sm_exit;
 
 if(bFL5)ptrs[default_temp]=sm_;
 	
@@ -5226,7 +5245,7 @@ else if(ind==iSet)
 	          {
 	          tree_up(iDef,0,0,0);
 	          ret(1000);
-	          default_temp=10;
+	          default_temp=20;
 	          }
 	     }	
 	
@@ -5588,6 +5607,7 @@ else if(ind==iSet)
   
 else if(ind==iDef)
 	{
+/*
 #if(UKU_VERSION==300)
 #ifdef _24_
 #define SIMAXIDEF 2
@@ -5604,7 +5624,7 @@ else if(ind==iDef)
 #define SIMAXIDEF 10
 #endif
 
-#endif
+#endif	*/
 
 /*
 else if (ind==iDef)
@@ -5643,6 +5663,8 @@ else if (ind==iDef)
 	ptrs[10]=sm_exit;
 #endif	
 */
+
+#define SIMAXIDEF 16
 	
 	ret(1000);
 	if(but==butD)
@@ -5659,7 +5681,48 @@ else if (ind==iDef)
 		{
 		sub_ind=SIMAXIDEF;
 		}
-	
+
+	else if(but==butE)
+		{
+		if(sub_ind==0)
+			{
+			def_set_1(/*ausw*/6040,/*umax*/750,/*ub0*/701,/*ub20*/681,/*usign*/540,/*imax*/120,/*imin*/80,/*uob*/600,/*numi*/2,/*kindsrc*/1000);
+			
+			}
+		if(sub_ind==1)
+			{
+			def_set_1(/*ausw*/6020,/*umax*/750,/*ub0*/701,/*ub20*/681,/*usign*/540,/*imax*/250,/*imin*/80,/*uob*/600,/*numi*/2,/*kindsrc*/1000);
+			
+			}
+		if(sub_ind==2)
+			{
+			def_set_1(/*ausw*/6024,/*umax*/750,/*ub0*/701,/*ub20*/681,/*usign*/540,/*imax*/72,/*imin*/48,/*uob*/600,/*numi*/2,/*kindsrc*/950);
+			
+			}
+		if(sub_ind==3)
+			{
+			def_set_1(/*ausw*/6012,/*umax*/750,/*ub0*/701,/*ub20*/681,/*usign*/540,/*imax*/150,/*imin*/48,/*uob*/600,/*numi*/2,/*kindsrc*/950);
+			
+			}
+		if(sub_ind==4)
+			{
+			def_set_1(/*ausw*/6012,/*umax*/750,/*ub0*/701,/*ub20*/681,/*usign*/540,/*imax*/36,/*imin*/24,/*uob*/600,/*numi*/2,/*kindsrc*/360);
+			
+			}
+		if(sub_ind==5)
+			{
+			def_set_1(/*ausw*/6006,/*umax*/750,/*ub0*/701,/*ub20*/681,/*usign*/540,/*imax*/80,/*imin*/24,/*uob*/600,/*numi*/2,/*kindsrc*/360);
+			
+			}
+
+		if(sub_ind==SIMAXIDEF)
+			{
+               //a=b[--ptr_ind];
+        	tree_down(0,0);
+			}
+		default_temp=sub_ind;
+		}
+/*	
 #if(UKU_VERSION==900)
 
 #ifdef _24_
@@ -5796,16 +5859,12 @@ else if (ind==iDef)
 			def_set(600,564,545,440,30,480,1);
 			lc640_write_int(EE_AUSW_MAIN,4805);
 			}	
-		else if(sub_ind==SIMAXIDEF)
-			{
-               //a=b[--ptr_ind];
-               tree_down(0,0);
-			}
+
 		default_temp=sub_ind;	
 		}
 #endif				
 #endif    	     			
-		
+*/		
 /*	else if(sub_ind==SIMAXIDEF)
 	     {
 	     if(but==butE)
@@ -5813,6 +5872,9 @@ else if (ind==iDef)
 	          a=b[--ptr_ind];
 	          }
 	     }	*/
+
+
+
 	}
 	     
 else if(ind==iStr)
