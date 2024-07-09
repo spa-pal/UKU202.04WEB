@@ -1566,7 +1566,7 @@ int2lcdyx(index_set,0,1,0);*/
 		//int2lcdyx(time_sinc_hndl_main_cnt,0,9,0);
 		//int2lcdyx(time_sinc_hndl_req_cnt,0,19,0);
 
-		int2lcdyx(adc_buff_[4],0,6,0);
+		//int2lcdyx(adc_buff_[4],0,6,0);
     	} 
      
 
@@ -3958,7 +3958,11 @@ else if(ind==iFWabout)
 
 	bgnd_par(	" Версия             ",
 				" Сборка  0000.00.00 ",
+#ifdef WG12232L3
+				" WG12232L3          ",
+#else
 				"                    ",
+#endif
 				"                    ");
 	int2lcdyx(BUILD_YEAR,1,12,0);
 	int2lcdyx(BUILD_MONTH,1,15,0);

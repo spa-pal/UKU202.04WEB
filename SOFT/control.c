@@ -2978,7 +2978,7 @@ if(bADC1==0)
 	adc_self_ch_cnt=0;
 	
 	SET_REG(LPC_GPIO0->FIODIR,7,5,3);
-	SET_REG(LPC_GPIO0->FIOPIN,4/*adc_ch*/,5,3);
+	SET_REG(LPC_GPIO0->FIOPIN,adc_ch,5,3);
 		
 	if(adc_ch<=7)SET_REG(LPC_ADC->ADCR,1<<5,0,8);
 	else if(adc_ch==8) SET_REG(LPC_ADC->ADCR,1<<2,0,8);
