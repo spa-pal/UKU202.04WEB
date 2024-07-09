@@ -171,7 +171,7 @@
 
 //-----------------------------------------------
 //Таймер
-extern char b1000Hz,b100Hz,b50Hz,b10Hz,b5Hz,b2Hz,b1Hz,b33Hz,bADC;
+extern char b1000Hz,b100Hz,b50Hz,b10Hz,b5Hz,b2Hz,b1Hz,b33Hz,bADC, bADC1;
 extern short t0cnt,t0cnt0,t0cnt1,t0cnt2,t0cnt3,t0cnt4,t0cnt5,t0cnt6,t0_cnt7,t0_cnt8,t0_cnt_adc;
 extern char bFL5,bFL2,bFL,bFL_;
 
@@ -484,6 +484,7 @@ extern short plazma_mib,plazma_mib1;
 extern short snmp_plazma;
 extern char plazma_can,plazma_can1,plazma_can2,plazma_can3,plazma_can4;
 extern char web_plazma[5];
+extern short plazma_uart_ee[8];
 
 extern char bRESET_RESET;
 //-----------------------------------------------
