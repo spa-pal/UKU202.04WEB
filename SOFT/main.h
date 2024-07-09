@@ -285,6 +285,7 @@ extern signed short NUMSK;
 extern signed short BAT_C_REAL;
 extern signed short BAT_C_NOM;
 extern signed short BAT_RESURS;
+extern signed short KINDSRC;
 
 //signed short ZAR_CNT,ZAR_CNT_KE;
 //signed short BAT_RESURS;

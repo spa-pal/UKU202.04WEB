@@ -118,6 +118,7 @@ signed short NUMSK;
 signed short BAT_C_REAL;
 signed short BAT_C_NOM;
 signed short BAT_RESURS;
+signed short KINDSRC;
 
 //signed short ZAR_CNT,ZAR_CNT_KE;
 //signed short BAT_RESURS;
@@ -3001,7 +3002,8 @@ else if(ind==iStr)
 	ptrs[1]=" Источников        !";
 	ptrs[2]=" Датчиков темпер.  #";
 	ptrs[3]=" Сухих контактов   $";
-	ptrs[4]=sm_exit;
+	ptrs[4]=" Тип БПС           %";
+	ptrs[5]=sm_exit;
 	
 	if(sub_ind<index_set) index_set=sub_ind;
 	else if((sub_ind-index_set)>2) index_set=sub_ind-2;
@@ -3013,6 +3015,10 @@ else if(ind==iStr)
 	int2lcd(NUMBAT,'@',0);
 	int2lcd(NUMDT,'#',0);
 	int2lcd(NUMSK,'$',0);
+	if(KINDSRC == 1) sub_bgnd("360",'%',-2);
+	else if(KINDSRC == 2) sub_bgnd("950",'%',-2);
+	else if(KINDSRC == 3) sub_bgnd("1000.01",'%',-6);
+	else sub_bgnd("неопр.",'%',-5);
 	}    
 
 else if (ind==iExt_set)
@@ -5815,16 +5821,16 @@ else if(ind==iStr)
 	if(but==butD)
 		{
 		sub_ind++;
-		gran_char(&sub_ind,0,4);
+		gran_char(&sub_ind,0,5);
 		}
 	else if(but==butU)
 		{
 		sub_ind--;
-		gran_char(&sub_ind,0,4);
+		gran_char(&sub_ind,0,5);
 		}
 	else if(but==butD_)
 		{
-		sub_ind=4;
+		sub_ind=5;
 		}				
 	else if(sub_ind==0)
 	     {
@@ -5867,8 +5873,24 @@ else if(ind==iStr)
 	     	gran(&NUMSK,0,4);
 	     	lc640_write_int(EE_NUMSK,NUMSK);
 	     	}
-          }	                 
-    else if(sub_ind==4)
+          }	  
+     else if(sub_ind==4)
+	     {
+	     if((but==butR)||(but==butR_))
+	     	{
+	     	KINDSRC++;
+	     	gran(&KINDSRC,1,3);
+	     	lc640_write_int(EE_KINDSRC,KINDSRC);
+	     	}
+	     
+	     else if((but==butL)||(but==butL_))
+	     	{
+	     	KINDSRC--;
+	     	gran(&KINDSRC,1,3);
+	     	lc640_write_int(EE_KINDSRC,KINDSRC);
+	     	}
+          }	   		                 
+    else if(sub_ind==5)
 	     {
 	     if(but==butE)
 	          {
@@ -7739,13 +7761,19 @@ else if(ind==iK_bat)
 		     {
 		     if(but==butE)
 		          {
-		          #if(UKU_VERSION==300)
-		          if(sub_ind1==0)temp_SS=adc_buff_[3];
-		          if(sub_ind1==1)temp_SS=adc_buff_[1];
-                    #else
-                    if(sub_ind1==0)temp_SS=adc_buff_[1];
-		          if(sub_ind1==1)temp_SS=adc_buff_[3];
-		          #endif
+		          //#if(UKU_VERSION==300)
+				  	if(KINDSRC==1)
+						{
+		          		if(sub_ind1==0)temp_SS=adc_buff_[3];
+		          		if(sub_ind1==1)temp_SS=adc_buff_[1];
+				  		}
+                    //#else
+					else
+						{
+						if(sub_ind1==0)temp_SS=adc_buff_[1];
+		          		if(sub_ind1==1)temp_SS=adc_buff_[3];
+						}
+		          //#endif
 		          lc640_write_int(ptr_ki0_src[sub_ind1],temp_SS);
 		     	phase=1;
 		          }

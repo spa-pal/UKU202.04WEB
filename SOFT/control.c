@@ -1056,12 +1056,15 @@ temp_SL=(signed long)adc_buff_[0];
 temp_SL*=Kusrc[1];
 temp_SL/=4000L;
 Us[1]=(signed short)temp_SL;
-
+/*
 #if(UKU_VERSION==300)
 temp_SL=(signed long)adc_buff_[3];
 #else
 temp_SL=(signed long)adc_buff_[1];
-#endif
+#endif */
+
+if(KINDSRC==1)	temp_SL=(signed long)adc_buff_[3];
+else 			temp_SL=(signed long)adc_buff_[1];
 temp_SL-=Ki0src[0];
 if(temp_SL<0)temp_SL=0;
 temp_SL*=Kisrc[0];
@@ -1072,12 +1075,15 @@ temp_SL/=4000L;
 #endif
 
 Is[0]=(signed short)temp_SL;
-		
+/*		
 #if(UKU_VERSION==300)
 temp_SL=(signed long)adc_buff_[1];
 #else
 temp_SL=(signed long)adc_buff_[3];
-#endif
+#endif */
+
+if(KINDSRC==1)	temp_SL=(signed long)adc_buff_[1];
+else 			temp_SL=(signed long)adc_buff_[3];
 temp_SL-=Ki0src[1];
 if(temp_SL<0)temp_SL=0;
 temp_SL*=Kisrc[1];

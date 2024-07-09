@@ -65,6 +65,7 @@
 #define EE_IU4		EE_IU3+2
 #define EE_SNTP_ENABLE		EE_IU4+2
 #define EE_SNTP_GMT			EE_SNTP_ENABLE+2
+#define EE_KINDSRC			EE_SNTP_GMT+2
 
 
 #define SECTOR_AUSW  		SECTOR_KOEF+150
