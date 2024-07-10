@@ -607,6 +607,7 @@ else http_power_voltage_of_phase[0]=Unet_;
 http_power_frequncy = fnet;
 http_power_status=0;
 if(St&0x01)http_power_status=1;
+if((St&0x05)==0x05)http_power_status=2;
 //http_power_status=net_av;
 };
 

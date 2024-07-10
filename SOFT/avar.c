@@ -434,7 +434,7 @@ void avar_unet_hndl(char in)
 char data[4];
 unsigned short event_ptr,lc640_adr,event_ptr_find,event_cnt;
   
-if(in) 
+if(in==1) 
 	{
 	St|=0x01;
 	av_stat|=0x0001;
@@ -519,9 +519,79 @@ if(in)
 	snmp_trap_send("Main power is off",2,1,0);
 	
 	}
-else if(in==0)
+
+else if(in==2)
 	{
-	St&=0xfe;
+	St|=0x05;
+	av_stat|=0x0001;
+	av_rele|=0x0001;
+	av_beep|=0x0001;		
+	tzas_cnt=5*TZAS;
+	 
+	event_ptr=lc640_read_int(PTR_EVENT_LOG);
+	event_ptr++;	
+	if(event_ptr>63)event_ptr=0;	
+	lc640_write_int(PTR_EVENT_LOG,event_ptr);	
+	
+     event_cnt=lc640_read_int(CNT_EVENT_LOG);
+	if(event_cnt!=63)event_cnt=event_ptr;
+	lc640_write_int(CNT_EVENT_LOG,event_cnt); 
+	
+	lc640_adr=EVENT_LOG+(lc640_read_int(PTR_EVENT_LOG)*32);
+	
+	data[0]='P';
+	data[1]=0;
+	data[2]='B';
+	data[3]=0;
+	lc640_write_long_ptr(lc640_adr,data);
+
+	data[0]=0;//*((char*)&Unet_store);
+	data[1]=0;//*(((char*)&Unet_store)+1);
+	data[2]=0;
+	data[3]=0;
+	lc640_write_long_ptr(lc640_adr+4,data);
+
+	data[0]=LPC_RTC->YEAR;
+	data[1]=LPC_RTC->MONTH;
+	data[2]=LPC_RTC->DOM;
+	data[3]=0;
+	lc640_write_long_ptr(lc640_adr+8,data);
+
+	data[0]=LPC_RTC->HOUR;
+	data[1]=LPC_RTC->MIN;
+	data[2]=LPC_RTC->SEC;
+	data[3]=0;
+	lc640_write_long_ptr(lc640_adr+12,data);
+	
+	data[0]='A';
+	data[1]='A';
+	data[2]='A';
+	data[3]='A';
+	lc640_write_long_ptr(lc640_adr+16,data);
+	
+	data[0]='A';
+	data[1]='A';
+	data[2]='A';
+	data[3]='A';
+	lc640_write_long_ptr(lc640_adr+20,data);
+	
+	data[0]='A';
+	data[1]='A';
+	data[2]='A';
+	data[3]='A';
+	lc640_write_long_ptr(lc640_adr+24,data);
+	
+	data[0]='A';
+	data[1]='A';
+	data[2]='A';
+	data[3]='A';
+	lc640_write_long_ptr(lc640_adr+28,data);				
+	
+	snmp_trap_send("Main power alarm, voltage increased",2,2,0);
+	}
+else if(in==0 || in==4)
+	{
+	St&=0xfa;
 	av_stat&=0xfffe;
 	av_rele&=0xfffe;
 	av_beep&=0xfffe; 
@@ -551,7 +621,7 @@ avar_unet_hndl_lbl1:
 
      lc640_read_long_ptr(lc640_adr,data);
      
-     if(!((data[0]=='P')&&(data[1]==0)&&(data[2]=='A')))
+     if(!((data[0]=='P')&&(data[1]==0)&&((data[2]=='A')||(data[2]=='B'))))
      	{        
      	if(event_ptr_find)event_ptr_find--;
      	else event_ptr_find=63;

@@ -146,6 +146,7 @@
 #define PAROL_TST 999 
 #define PAROL_DEFAULT 295
 #define PAROL_AUSW 949
+#define PAROL_LOG_RESET	691
 #endif                
 
 #ifdef PAROL_ALL_ZERO
@@ -188,7 +189,7 @@ extern signed short adc_buff_9[64],adc_buff_9_cnt,adc_buff_9_;
 extern short Hz_cnt,fnet,Hz_out;
 extern char bFF,bFF_;
 extern signed short Unet,Unet_;
-extern char unet_drv_cnt;
+extern char unet_drv_cnt, unet_max_drv_cnt;
 extern signed short unet_store;
 
 //-----------------------------------------------
@@ -202,7 +203,7 @@ typedef enum {iMn,iSrv_sl,iNet,iSet,iBat,iSrc,iS2,iSet_prl,iK_prl,iDnd,iK,
 	iJAv_src2,iJAv_bat,iJAv_bat_sel,iAusw,iAusw_prl,iAusw_set,iK_t_out,
 	iJ_bat_ke_sel,iJ_bat_ke,iJ_bat_vz_sel,iJ_bat_vz,iJ_bat_wrk_sel,iJ_bat_wrk,
 	iExt_set,iExt_dt,iExt_sk,iAvz,iJAv_src1_sel,iJAv_src2_sel,iLog,iLog_,iLan_set,iLan,iSM,
-	iFWabout}ind_enum;
+	iFWabout, iLog_reset_prl}ind_enum;
 
 
 typedef struct  

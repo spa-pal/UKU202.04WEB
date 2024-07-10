@@ -50,7 +50,7 @@ char bFL5,bFL2,bFL,bFL_;
 short Hz_cnt,fnet,Hz_out;
 char bFF,bFF_;
 signed short Unet,Unet_;
-char unet_drv_cnt;
+char unet_drv_cnt, unet_max_drv_cnt;
 signed short unet_store;
 
 //-----------------------------------------------
@@ -1920,7 +1920,7 @@ else if(ind==iLog_)
 		
 		}
 
-	else if((av_head[0]=='P')&&(av_head[2]=='A'))
+/*	else if((av_head[0]=='P')&&(av_head[2]=='A'))
 		{  
 		ptrs[0]="   Авария сети!!!   ";
 		ptrs[1]="  0%(  0^ 0@:0#:0$  ";
@@ -1958,7 +1958,86 @@ else if(ind==iLog_)
 		sub_bgnd(sm_mont[av_data_on[1]],'(',0);
 		
 		av_j_si_max=1;
+		} */
+	else if((av_head[0]=='P')&&(av_head[2]=='A'))
+		{  
+		ptrs[0]="Авария сети!(заниж.)";
+		ptrs[1]="  0%f  0^ 0@:0#:0$  ";
+		if((av_data_off[0]=='A')&&(av_data_off[1]=='A'))
+			{
+			ptrs[2]="    не устранена    ";
+			ptrs[3]="     Uсети=  +В     ";
+			bgnd_par(ptrs[0],ptrs[1],ptrs[2],ptrs[3]);
+			int2lcd(Unet,'+',0);
+			}
+		else 
+			{
+			gran_char(&index_set,0,1);
+			ptrs[2]="      устранена     ";
+			ptrs[3]="  0[]  0< 0>:0=:0F  ";
+			ptrs[4]="     Uмин=  +В      ";
+			bgnd_par(ptrs[index_set],ptrs[1+index_set],ptrs[2+index_set],ptrs[3+index_set]);
+			int2lcd(av_data_off[4],'>',0);
+			int2lcd(av_data_off[5],'=',0);
+			int2lcd(av_data_off[6],'F',0);
+			int2lcd(av_data_off[2],'[',0);
+			int2lcd(av_data_off[0],'<',0); 
+			if(!((av_data_off[1]>=1)&&(av_data_off[1]<=12)))av_data_off[1]=1;
+			sub_bgnd(sm_mont[av_data_off[1]],']',0);
+			
+			int2lcd(av_data[0]+(av_data[1]*256),'+',0);			
+			}	
+		
+		int2lcd(av_data_on[4],'@',0);
+		int2lcd(av_data_on[5],'#',0);
+		int2lcd(av_data_on[6],'$',0);
+		int2lcd(av_data_on[2],'%',0);
+		int2lcd(av_data_on[0],'^',0); 
+		if(!((av_data_on[1]>=1)&&(av_data_on[1]<=12)))av_data_on[1]=1;
+		sub_bgnd(sm_mont[av_data_on[1]],'f',0);
+		
+		av_j_si_max=1;
 		}
+	else if((av_head[0]=='P')&&(av_head[2]=='B'))
+		{  
+		ptrs[0]="Авария сети!(завыш.)";
+		ptrs[1]="  0%f  0^ 0@:0#:0$  ";
+		if((av_data_off[0]=='A')&&(av_data_off[1]=='A'))
+			{
+			ptrs[2]="    не устранена    ";
+			ptrs[3]="     Uсети=  +В     ";
+			bgnd_par(ptrs[0],ptrs[1],ptrs[2],ptrs[3]);
+			int2lcd(Unet,'+',0);	 //o_10
+			}
+		else 
+			{
+			gran_char(&index_set,0,1);
+			ptrs[2]="      устранена     ";
+			ptrs[3]="  0[]  0< 0>:0=:0F  ";
+			ptrs[4]="     Uмакс=  +В     ";
+			bgnd_par(ptrs[index_set],ptrs[1+index_set],ptrs[2+index_set],ptrs[3+index_set]);
+			int2lcd(av_data_off[4],'>',0);
+			int2lcd(av_data_off[5],'=',0);
+			int2lcd(av_data_off[6],'F',0);
+			int2lcd(av_data_off[2],'[',0);
+			int2lcd(av_data_off[0],'<',0); 
+			if(!((av_data_off[1]>=1)&&(av_data_off[1]<=12)))av_data_off[1]=1;
+			sub_bgnd(sm_mont[av_data_off[1]],']',0);
+			
+			int2lcd(av_data[0]+(av_data[1]*256),'+',0);			
+			}	
+		
+		int2lcd(av_data_on[4],'@',0);
+		int2lcd(av_data_on[5],'#',0);
+		int2lcd(av_data_on[6],'$',0);
+		int2lcd(av_data_on[2],'%',0);
+		int2lcd(av_data_on[0],'^',0); 
+		if(!((av_data_on[1]>=1)&&(av_data_on[1]<=12)))av_data_on[1]=1;
+		sub_bgnd(sm_mont[av_data_on[1]],'f',0);
+		
+		av_j_si_max=1;
+		}
+
 
 	else if((av_head[0]=='B')&&(av_head[2]=='C'))
 		{  
@@ -3603,6 +3682,17 @@ else if(ind==iPrl_bat_in_out)
     //  int2lcdyx(but,3,18,0);                
 	}		   
 
+else if(ind==iLog_reset_prl)
+	{
+	ptrs[0]="Для очистки журнала ";
+	bgnd_par(ptrs[0],"  введите  пароль   ",sm_,sm_);
+	
+     int2lcdyx(parol[0],2,8,0);
+     int2lcdyx(parol[1],2,9,0);
+     int2lcdyx(parol[2],2,10,0);
+     lcd_buffer[68+sub_ind]='¤';	
+	}
+
 else if(ind==iJ_bat_ke_sel)
 	{
 	if(av_j_si_max==0)
@@ -4715,25 +4805,30 @@ else if(ind==iLog)
 		
 	else if(but==butE)
 		{  
-		if(sub_ind==av_j_si_max+1)
+		if((sub_ind==av_j_si_max+1)&&(av_j_si_max!=0))
 			{
-			lc640_write(CNT_EVENT_LOG,0);
+			tree_up(iLog_reset_prl,0,0,0);
+			parol_init();
+			/*lc640_write(CNT_EVENT_LOG,0);
 			lc640_write(PTR_EVENT_LOG,0);
-	          tree_down(0,0);
-	          ret(0);				
+			tree_down(0,0);
+			avar_ind_stat=0;
+			avar_stat=0;
+			avar_stat_old=0;*/				
 			}
 					
-		else if(sub_ind==av_j_si_max)
+		else if((sub_ind==av_j_si_max)||(av_j_si_max==0))
 			{
-	          tree_down(0,0);
-	          ret(0);			}
+			tree_down(0,0);
+			ret(0);
+			}
 			
 		else 
 			{
-			//ind=iLog_;
-			//sub_ind1=sub_ind;
-			//index_set=0;
-			//sub_ind=0;
+			/*ind=iLog_;
+			sub_ind1=sub_ind;
+			index_set=0;
+			sub_ind=0;*/
 			tree_up(iLog_,0,0,sub_ind);
 			}	
 			
@@ -5712,6 +5807,56 @@ else if (ind==iDef)
 		if(sub_ind==5)
 			{
 			def_set_1(/*ausw*/6006,/*umax*/750,/*ub0*/701,/*ub20*/681,/*usign*/540,/*imax*/80,/*imin*/24,/*uob*/600,/*numi*/2,/*kindsrc*/360);
+			
+			}
+		if(sub_ind==6)
+			{
+			def_set_1(/*ausw*/4840,/*umax*/600,/*ub0*/561,/*ub20*/545,/*usign*/432,/*imax*/120,/*imin*/80,/*uob*/480,/*numi*/2,/*kindsrc*/1000);
+			
+			}
+		if(sub_ind==7)
+			{
+			def_set_1(/*ausw*/4820,/*umax*/600,/*ub0*/561,/*ub20*/545,/*usign*/432,/*imax*/250,/*imin*/80,/*uob*/480,/*numi*/2,/*kindsrc*/1000);
+			
+			}
+		if(sub_ind==8)
+			{
+			def_set_1(/*ausw*/4824,/*umax*/600,/*ub0*/561,/*ub20*/545,/*usign*/432,/*imax*/72,/*imin*/48,/*uob*/480,/*numi*/2,/*kindsrc*/950);
+			
+			}
+		if(sub_ind==9)
+			{
+			def_set_1(/*ausw*/4812,/*umax*/600,/*ub0*/561,/*ub20*/545,/*usign*/432,/*imax*/150,/*imin*/48,/*uob*/480,/*numi*/2,/*kindsrc*/950);
+			
+			}
+		if(sub_ind==10)
+			{
+			def_set_1(/*ausw*/4812,/*umax*/600,/*ub0*/561,/*ub20*/545,/*usign*/432,/*imax*/36,/*imin*/24,/*uob*/480,/*numi*/2,/*kindsrc*/360);
+			
+			}
+		if(sub_ind==11)
+			{
+			def_set_1(/*ausw*/4806,/*umax*/600,/*ub0*/561,/*ub20*/545,/*usign*/432,/*imax*/80,/*imin*/24,/*uob*/480,/*numi*/2,/*kindsrc*/360);
+			
+			}
+		if(sub_ind==12)
+			{
+			def_set_1(/*ausw*/2450,/*umax*/300,/*ub0*/281,/*ub20*/272,/*usign*/216,/*imax*/150,/*imin*/100,/*uob*/240,/*numi*/2,/*kindsrc*/1000);
+			
+			}
+		if(sub_ind==13)
+			{
+			def_set_1(/*ausw*/2425,/*umax*/300,/*ub0*/281,/*ub20*/272,/*usign*/216,/*imax*/300,/*imin*/100,/*uob*/240,/*numi*/2,/*kindsrc*/1000);
+			
+			}
+		if(sub_ind==14)
+			{
+			def_set_1(/*ausw*/2424,/*umax*/300,/*ub0*/281,/*ub20*/272,/*usign*/216,/*imax*/72,/*imin*/48,/*uob*/240,/*numi*/2,/*kindsrc*/360);
+			
+			}
+		if(sub_ind==15)
+			{
+			def_set_1(/*ausw*/2412,/*umax*/300,/*ub0*/281,/*ub20*/272,/*usign*/216,/*imax*/150,/*imin*/48,/*uob*/240,/*numi*/2,/*kindsrc*/360);
 			
 			}
 
@@ -7987,7 +8132,7 @@ else if(ind==iK_t_out)
 
 else if((ind==iPrl_bat_in_out)||(ind==iSet_prl)||(ind==iK_prl)
 	||(ind==iSpc_prl_vz)||(ind==iSpc_prl_ke)||(ind==iAusw_prl)
-	||(ind==iPrltst))
+	||(ind==iPrltst)||(ind==iLog_reset_prl))
 	{
 	ret(50);
 	if(but==butR)
@@ -8186,6 +8331,32 @@ else if((ind==iPrl_bat_in_out)||(ind==iSet_prl)||(ind==iK_prl)
 				ind=iDnd;
 		          ret_ind(b[--ptr_ind].i,1,5);
      	          }
+			}
+		else if(ind==iLog_reset_prl)
+			{
+			if(tempU==PAROL_LOG_RESET) 
+				{
+				tree_down(0,0);
+				lc640_write(CNT_EVENT_LOG,0);
+				lc640_write(PTR_EVENT_LOG,0);
+				tree_down(0,0);
+				//avar_ind_stat=0;
+				//avar_stat=0;
+				//avar_stat_old=0;
+	    	    show_mess("                    ",
+	          			"   Журнал событий   ",
+	          			"      очищен!!!     ",
+	          			"                    ",1000);
+				//ret(1000);
+				}
+	  		else 
+				{
+		          tree_down(0,0);
+	    	          show_mess("                    ",
+	          			"       Пароль       ",
+	          			"     неверный!!!    ",
+	          			"                    ",1000);
+				}  
 			}
 		}
 	}

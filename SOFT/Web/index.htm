@@ -324,7 +324,7 @@
 					$("#u_pow_freq").text(inputData.powFreq/10 + "Гц");
 					var pow_status_string = "норма";
 					if(inputData.powStat=="1") pow_status_string = "Авария! Заниженное напряжение!";
-					if(inputData.powStat=="2") pow_status_string = "Авария! Повышенное напряжение!";
+					if(inputData.powStat=="2") pow_status_string = "Авария! Завышенное напряжение!";
 					$("#u_pow_stat").text(pow_status_string); 
 				}
 			}

@@ -2701,6 +2701,39 @@ else if(Unet>UMN)
 			}
 		}
 	}
+
+
+if((Unet>UMAXN)&&(main_cnt>5)) 
+	{
+	if(unet_max_drv_cnt<AVAR_UNET_ON)
+		{
+		unet_max_drv_cnt++;
+		if(unet_max_drv_cnt>=AVAR_UNET_ON)
+			{
+			unet_store=Unet; 
+		 	avar_unet_hndl(2);
+			
+			}
+		}
+	else if(unet_max_drv_cnt>=AVAR_UNET_ON)unet_max_drv_cnt=AVAR_UNET_ON;
+
+	if(Unet>unet_store) unet_store=Unet; 
+	}
+
+else if(Unet<UMAXN) 
+	{                 
+	if(unet_max_drv_cnt)
+		{
+		unet_max_drv_cnt--;
+		if(unet_max_drv_cnt<=0)
+			{
+			avar_unet_hndl(4); 
+			//avar_bps_reset_cnt=10;
+			}
+		}
+	else if(unet_max_drv_cnt<0)unet_max_drv_cnt=0;
+	
+	}
 }
 
 //-----------------------------------------------

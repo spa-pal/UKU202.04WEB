@@ -122,9 +122,11 @@ char i;
 snmp_mains_power_voltage=Unet;
 snmp_mains_power_frequency=fnet;
 snmp_mains_power_status=0;
+snmp_mains_power_alarm=0;
+/*
 #if(UKU_VERSION==900)
 snmp_mains_power_status=2;
-#endif
+#endif*/
 if(St&0x01)snmp_mains_power_status|=0x01;
 if(St&0x01)snmp_mains_power_alarm=1;
 
