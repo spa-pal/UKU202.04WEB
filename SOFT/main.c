@@ -8058,7 +8058,7 @@ else if(ind==iK_net)
 		else if(but==butR_)	temp_SS+=10;
 		else if(but==butL) temp_SS--;
 		else if(but==butL_)	temp_SS-=10;
-		gran(&temp_SS,500,1000);
+		gran(&temp_SS,400,1000);
 		lc640_write_int(ptr_ku_net,temp_SS);				
 		speed=1;			
 		}
