@@ -7993,7 +7993,7 @@ else if(ind==iK_bat)
 	     	else if(but==butR_)	temp_SS+=2;
 	     	else if(but==butL) temp_SS--;
 	     	else if(but==butL_)	temp_SS-=2;
-			gran(&temp_SS,100,800);
+			gran(&temp_SS,100,1200);
 	     	lc640_write_int(ptr_ki_src[sub_ind1],temp_SS);
 			speed=1;			
 	     	}
