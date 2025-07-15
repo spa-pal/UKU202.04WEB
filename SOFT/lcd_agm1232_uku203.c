@@ -9,7 +9,7 @@ char lcd_bitmap2[512];
 const char bit_mask_const[8]={0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 
 //-----------------------------------------------
-void bitmap_hndl_2(void)
+void bitmap_hndl_3(void)
 {
 char row, row_;
 signed char col, col_;
@@ -933,8 +933,8 @@ for(n=0;n<=3;n++)
 	lcd_set_col(0);
 	for(i=0;i<61;i++)
 		{
-		data1_wr(*ptr0);
-		data2_wr(*ptr1);
+		data1_wr(0x55/**ptr0*/);
+		data2_wr(0xAA/**ptr1*/);
 		ptr0++;
 		ptr1++;
 	    	}
