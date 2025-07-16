@@ -933,8 +933,8 @@ for(n=0;n<=3;n++)
 	lcd_set_col(0);
 	for(i=0;i<61;i++)
 		{
-		data1_wr(0x55/**ptr0*/);
-		data2_wr(0xAA/**ptr1*/);
+		data1_wr(/*0x55*/*ptr0);
+		data2_wr(/*0xAA*/*ptr1);
 		ptr0++;
 		ptr1++;
 	    	}

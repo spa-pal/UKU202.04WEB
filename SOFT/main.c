@@ -8883,7 +8883,7 @@ LPC_GPIO0->FIOSET  |= 1<<27;
 SET_REG(LPC_GPIO0->FIODIR,0,10,1); //вход частоты 
 
 lcd_init();  
-//lcd_on();
+lcd_on();
 lcd_clear();
 		
 LPC_GPIO4->FIODIR |= (1<<29);           /* LEDs on PORT2 defined as Output    */
